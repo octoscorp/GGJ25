@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://buow4sx2jp1cv"]
+
+[ext_resource type="Script" path="res://scripts/pan.gd" id="1_i5q1y"]
+[ext_resource type="Texture2D" uid="uid://dnc6r7tu5fo1d" path="res://media/icon.svg" id="1_qukuc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhq7q"]
+size = Vector2(631, 106.5)
+
+[node name="Pan" type="Node2D"]
+script = ExtResource("1_i5q1y")
+
+[node name="Handle" type="StaticBody2D" parent="."]
+position = Vector2(826, -245)
+collision_layer = 2
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Handle"]
+shape = SubResource("RectangleShape2D_fhq7q")
+
+[node name="Handle_Sprite" type="Sprite2D" parent="Handle"]
+scale = Vector2(4.92969, 0.828125)
+texture = ExtResource("1_qukuc")
+
+[node name="Body" type="RigidBody2D" parent="."]
+collision_layer = 3
+lock_rotation = true
+
+[node name="Body_Sprite" type="Sprite2D" parent="Body"]
+position = Vector2(4.05312e-05, 5)
+scale = Vector2(7.96875, 4.76562)
+texture = ExtResource("1_qukuc")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(-490, -300, -490, 290, 490, 290, 490, -300, 510, -300, 510, 310, -510, 310, -510, -300)
+
+[node name="Connector" type="DampedSpringJoint2D" parent="Body"]
+rotation = 1.5708
+node_a = NodePath("../../Handle")
+node_b = NodePath("..")
+bias = 0.9
+length = 20.0
+rest_length = 1.0
+stiffness = 64.0
+
+[connection signal="mouse_entered" from="Handle" to="." method="_on_handle_mouse_entered"]
+[connection signal="mouse_exited" from="Handle" to="." method="_on_handle_mouse_exited"]
