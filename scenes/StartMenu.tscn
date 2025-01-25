@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://brqpfa73pqg73"]
+[gd_scene load_steps=2 format=3 uid="uid://do70mnd7ja002"]
 
-[ext_resource type="PackedScene" uid="uid://bdf4wv0no4u06" path="res://scenes/LevelSelectionButton.tscn" id="1_i2tbp"]
+[ext_resource type="PackedScene" path="res://scenes/LevelSelectionButton.tscn" id="1_i2tbp"]
 
 [node name="Node2D" type="Node2D"]
 

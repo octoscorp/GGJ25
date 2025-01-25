@@ -1,6 +1,8 @@
 class_name WaterSource extends Node2D
 var objects: Array[Array] = []
 
+@export var starting_water : int = 0
+
 @export var water_texture: Texture2D
 @export var spawnRad: float
 @export var debug_spawn_action : String
@@ -17,6 +19,8 @@ var objects: Array[Array] = []
 func _ready() -> void:
 	cir_shape.radius = particle_size/2
 	cir_shape.custom_solver_bias = 0.1
+	for i in starting_water:
+		spawn_water()
 
 
 func create_object(pos: Vector2):

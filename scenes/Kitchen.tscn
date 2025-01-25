@@ -31,7 +31,7 @@ shader = SubResource("Shader_8fqvx")
 shader_parameter/alpha_threshold = 0.5
 
 [sub_resource type="Gradient" id="Gradient_bx06h"]
-offsets = PackedFloat32Array(0.95338, 1)
+offsets = PackedFloat32Array(0.678322, 1)
 colors = PackedColorArray(0.2025, 0.698625, 0.81, 1, 0.2025, 0.698625, 0.81, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_8lo26"]
@@ -50,20 +50,21 @@ position = Vector2(900, 900)
 shape = SubResource("RectangleShape2D_q0ma4")
 
 [node name="Pan" parent="." instance=ExtResource("1_rqgy4")]
-position = Vector2(787, 390)
+position = Vector2(759, 594)
 
 [node name="Flame" parent="." instance=ExtResource("2_1cn4q")]
-position = Vector2(836, 855)
+position = Vector2(832, 705)
 
 [node name="WaterGenerator" type="CanvasGroup" parent="."]
 self_modulate = Color(1, 1, 1, 0.537255)
 material = SubResource("ShaderMaterial_l5etb")
 position = Vector2(783, 88)
 script = ExtResource("3_3bymv")
+starting_water = 300
 water_texture = SubResource("GradientTexture2D_8lo26")
 spawnRad = 10.0
 debug_spawn_action = "debug_spawn_water"
-particle_size = 32.0
-texture_size = 64.0
+particle_size = 24.0
+texture_size = 48.0
 water_layer = 4
 water_mask = 15
