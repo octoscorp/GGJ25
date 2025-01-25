@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://do70mnd7ja002"]
+[gd_scene load_steps=4 format=3 uid="uid://do70mnd7ja002"]
 
 [ext_resource type="PackedScene" uid="uid://bdf4wv0no4u06" path="res://scenes/LevelSelectionButton.tscn" id="1_qmmxe"]
+[ext_resource type="Material" uid="uid://d8us87iwh6ih" path="res://scenes/fx/particle_burst.tres" id="2_2p2gf"]
+[ext_resource type="Material" uid="uid://df1486tvjysaw" path="res://scenes/fx/flame_burst.tres" id="3_a72lt"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -10,3 +12,17 @@ offset_top = 246.0
 offset_right = 718.0
 offset_bottom = 315.0
 scene = "res://scenes/menus/intro.tscn"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-493, 172)
+amount = 1
+process_material = ExtResource("2_2p2gf")
+lifetime = 0.1
+visibility_rect = Rect2(-100, -100, 1000, 200)
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(-495, 299)
+amount = 1
+process_material = ExtResource("3_a72lt")
+lifetime = 0.1
+visibility_rect = Rect2(-100, -100, 1000, 200)

@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://bj26u2kc06qb3"]
+[gd_scene load_steps=11 format=3 uid="uid://bj26u2kc06qb3"]
 
 [ext_resource type="Script" path="res://scripts/ingredient.gd" id="1_ofcp1"]
 [ext_resource type="Texture2D" uid="uid://dnc6r7tu5fo1d" path="res://media/icon.svg" id="2_hddgn"]
 [ext_resource type="Texture2D" uid="uid://bkmnukhl2lv4g" path="res://media/sparkle.png" id="3_gme53"]
+[ext_resource type="Material" uid="uid://d8us87iwh6ih" path="res://scenes/fx/particle_burst.tres" id="3_worxp"]
 [ext_resource type="Texture2D" uid="uid://8fo50lxt2x2y" path="res://media/flame_fx.png" id="4_8mjdb"]
+[ext_resource type="Material" uid="uid://df1486tvjysaw" path="res://scenes/fx/flame_burst.tres" id="5_jmqg5"]
 [ext_resource type="Texture2D" uid="uid://uvh8i6q0rjn6" path="res://media/smoke_fx.png" id="5_p1pnn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_quijn"]
@@ -15,48 +17,6 @@ colors = PackedColorArray(0.560784, 0, 0, 1, 1, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_gdv1b"]
 gradient = SubResource("Gradient_2gu12")
 fill_to = Vector2(0, 1)
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cw18d"]
-particle_flag_disable_z = true
-emission_shape = 6
-emission_ring_axis = Vector3(0, 0, 1)
-emission_ring_height = 48.0
-emission_ring_radius = 48.0
-emission_ring_inner_radius = 48.0
-angle_min = -180.0
-angle_max = 180.0
-radial_velocity_min = 90.0
-radial_velocity_max = 90.0
-gravity = Vector3(0, 98, 0)
-
-[sub_resource type="Gradient" id="Gradient_k1stu"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_pcxsh"]
-gradient = SubResource("Gradient_k1stu")
-width = 8
-
-[sub_resource type="Curve" id="Curve_86asv"]
-max_value = 3.0
-_data = [Vector2(0, 1), 0.0, 2.14743, 0, 0, Vector2(1, 3), 1.03245, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_7rerm"]
-width = 32
-curve = SubResource("Curve_86asv")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ywn8n"]
-particle_flag_disable_z = true
-emission_shape = 6
-emission_ring_axis = Vector3(0, 0, 1)
-emission_ring_height = 20.0
-emission_ring_radius = 20.0
-emission_ring_inner_radius = 20.0
-radial_velocity_min = 90.0
-radial_velocity_max = 90.0
-gravity = Vector3(0, -200, 0)
-scale_curve = SubResource("CurveTexture_7rerm")
-color_ramp = SubResource("GradientTexture1D_pcxsh")
 
 [node name="Ingredient" type="RigidBody2D"]
 collision_layer = 2
@@ -94,7 +54,7 @@ tint_progress = Color(1, 1, 1, 0.517647)
 [node name="CookedFX" type="GPUParticles2D" parent="."]
 emitting = false
 amount = 5
-process_material = SubResource("ParticleProcessMaterial_cw18d")
+process_material = ExtResource("3_worxp")
 texture = ExtResource("3_gme53")
 lifetime = 0.2
 one_shot = true
@@ -102,7 +62,7 @@ fixed_fps = 0
 
 [node name="BurntFX" type="GPUParticles2D" parent="."]
 emitting = false
-process_material = SubResource("ParticleProcessMaterial_ywn8n")
+process_material = ExtResource("5_jmqg5")
 texture = ExtResource("4_8mjdb")
 lifetime = 0.3
 one_shot = true
@@ -112,7 +72,7 @@ interpolate = false
 [node name="SmokeFX" type="GPUParticles2D" parent="."]
 emitting = false
 amount = 3
-process_material = SubResource("ParticleProcessMaterial_ywn8n")
+process_material = ExtResource("5_jmqg5")
 texture = ExtResource("5_p1pnn")
 lifetime = 2.0
 one_shot = true
