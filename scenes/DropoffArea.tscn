@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ceewrp5oddd22"]
+
+[ext_resource type="Script" path="res://scripts/dropoff_area.gd" id="1_dbwu7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w44rd"]
+size = Vector2(450, 100)
+
+[node name="DropoffArea" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_dbwu7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_w44rd")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

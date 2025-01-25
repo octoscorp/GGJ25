@@ -58,6 +58,18 @@ func _ready() -> void:
 	collision_polygon_2d.polygon = shape
 	_set_sprite()
 
+func get_score_value():
+	var value = POINT_SCORES[ingr_type]
+	match state:
+		COOK_STATES.RAW:
+			return 0
+		COOK_STATES.MEDIUM:
+			return int(value / 2)
+		COOK_STATES.COOKED:
+			return value
+		COOK_STATES.BURNT:
+			return int(-value / 2)
+
 func _set_sprite():
 	#var file = load("res://media/" + cooked_prefix[state] + "_" + food_filename[ingr_type] + ".png")
 	#sprite_2d.texture = file
