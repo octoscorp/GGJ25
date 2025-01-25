@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://bj26u2kc06qb3"]
+[gd_scene load_steps=10 format=3 uid="uid://bj26u2kc06qb3"]
 
 [ext_resource type="Script" path="res://scripts/ingredient.gd" id="1_ofcp1"]
-[ext_resource type="Texture2D" uid="uid://dnc6r7tu5fo1d" path="res://media/icon.svg" id="2_hddgn"]
 [ext_resource type="Texture2D" uid="uid://bkmnukhl2lv4g" path="res://media/sparkle.png" id="3_gme53"]
 [ext_resource type="Material" uid="uid://d8us87iwh6ih" path="res://scenes/fx/particle_burst.tres" id="3_worxp"]
 [ext_resource type="Texture2D" uid="uid://8fo50lxt2x2y" path="res://media/flame_fx.png" id="4_8mjdb"]
@@ -27,18 +26,9 @@ gravity_scale = 2.0
 script = ExtResource("1_ofcp1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-texture = ExtResource("2_hddgn")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-63, -64, 64, -64, 62, 64, -64, 64)
-
-[node name="Polygon2D" type="Polygon2D" parent="."]
 clip_children = 2
-texture_repeat = 2
-texture = ExtResource("2_hddgn")
 
-[node name="ProgressBar" type="TextureProgressBar" parent="Polygon2D"]
+[node name="ProgressBar" type="TextureProgressBar" parent="Sprite2D"]
 unique_name_in_owner = true
 offset_left = -63.0
 offset_top = -63.0
@@ -50,6 +40,10 @@ fill_mode = 3
 nine_patch_stretch = true
 texture_progress = SubResource("GradientTexture2D_gdv1b")
 tint_progress = Color(1, 1, 1, 0.517647)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-63, -64, 64, -64, 62, 64, -64, 64)
+disabled = true
 
 [node name="CookedFX" type="GPUParticles2D" parent="."]
 emitting = false

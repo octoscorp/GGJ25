@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0klm3tj51n70"]
+
+[ext_resource type="PackedScene" uid="uid://bj26u2kc06qb3" path="res://scenes/ingredients/Ingredient.tscn" id="1_36e8w"]
+[ext_resource type="Texture2D" uid="uid://5auqp70y80wf" path="res://media/raw_shrimp.png" id="2_rxik8"]
+
+[node name="Shrimp" instance=ExtResource("1_36e8w")]
+cook_time = 3.0
+cook_score = 10.0
+food_filename = "shrimp"
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.391753, 0.391753)
+texture = ExtResource("2_rxik8")
+
+[node name="ProgressBar" parent="Sprite2D" index="0"]
+visible = false
+offset_left = -94.0
+offset_top = -110.0
+offset_right = 156.0
+offset_bottom = 178.0
+tint_progress = Color(1, 1, 1, 0.501961)
+
+[node name="CollisionPolygon2D" parent="." index="1"]
+polygon = PackedVector2Array(-6, -43, -37, -9, 2, 13, 5, 34, -34, 30, -31, 59, 28, 68, 65, 23, 33, -24)
+disabled = false

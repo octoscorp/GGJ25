@@ -7,13 +7,13 @@ const BURN_PERCENT = 1.60
 const MAXIMUM_COOK_DISTANCE = 300
 const MAX_TEMP = 140
 
-const COOK_TIMES = {
-	INGREDIENTS.SHRIMP: 3.0,
-}
-
-const POINT_SCORES = {
-	INGREDIENTS.SHRIMP: 10.0,
-}
+#const COOK_TIMES = {
+	#INGREDIENTS.SHRIMP: 3.0,
+#}
+#
+#const POINT_SCORES = {
+	#INGREDIENTS.SHRIMP: 10.0,
+#}
 
 enum COOK_STATES {
 	RAW,
@@ -22,9 +22,9 @@ enum COOK_STATES {
 	BURNT,
 }
 
-const food_filename = {
-	INGREDIENTS.SHRIMP: "shrimp",
-}
+#const food_filename = {
+	#INGREDIENTS.SHRIMP: "shrimp",
+#}
 
 const cooked_prefix = {
 	COOK_STATES.RAW: "raw",
@@ -32,6 +32,10 @@ const cooked_prefix = {
 	COOK_STATES.COOKED: "cooked",
 	COOK_STATES.BURNT: "burnt",
 }
+
+@export var cook_time := 1.0
+@export var cook_score : float
+@export var food_filename : String
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var collision_polygon_2d: CollisionPolygon2D = $CollisionPolygon2D
@@ -42,7 +46,7 @@ const cooked_prefix = {
 @onready var smoke_fx: GPUParticles2D = $SmokeFX
 
 var ingr_type
-var cook_time: float
+#var cook_time: float
 var shape: PackedVector2Array
 var time_cooked = 0
 var state = COOK_STATES.RAW
@@ -50,23 +54,21 @@ var state = COOK_STATES.RAW
 var temperature = 0;
 
 # Called when the Ingredient is created (Ingredient.new(args)
-func _init(type = INGREDIENTS.SHRIMP) -> void:
-	ingr_type = type
-	cook_time = COOK_TIMES[type]
-	shape = INGREDIENTS.SHAPES[type]
-	for i in shape.size():
-		shape[i] = Vector2(shape[i])
+#func _init(type = INGREDIENTS.SHRIMP) -> void:
+	#ingr_type = type
+	#cook_time = COOK_TIMES[type]
+	#shape = INGREDIENTS.SHAPES[type]
+	#for i in shape.size():
+		#shape[i] = Vector2(shape[i])
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Set collision shape and sprite
-	collision_polygon_2d.polygon = shape
-	polygon_2d.polygon = shape
-	polygon_2d.uv = shape
+	#collision_polygon_2d.polygon = shape
 	_set_sprite()
 
 func get_score_value():
-	var value = POINT_SCORES[ingr_type]
+	var value = cook_score
 	match state:
 		COOK_STATES.RAW:
 			return 0
@@ -79,21 +81,20 @@ func get_score_value():
 
 func _set_sprite():
 	#temp logic before sprites
-	var col : Color
-	match state:
-		COOK_STATES.RAW:
-			col = Color(0.443, 0.446, 0.825)
-		COOK_STATES.MEDIUM:
-			col = Color(0.654, 0.71, 0.922)
-		COOK_STATES.COOKED:
-			col = Color(1, 0.639, 0.714)
-		COOK_STATES.BURNT:
-			col = Color(0.261, 0.182, 0.131)
-	polygon_2d.modulate = col
+	#var col : Color
+	#match state:
+		#COOK_STATES.RAW:
+			#col = Color(0.443, 0.446, 0.825)
+		#COOK_STATES.MEDIUM:
+			#col = Color(0.654, 0.71, 0.922)
+		#COOK_STATES.COOKED:
+			#col = Color(1, 0.639, 0.714)
+		#COOK_STATES.BURNT:
+			#col = Color(0.261, 0.182, 0.131)
+	#polygon_2d.modulate = col
 	
-	#var file = load("res://media/" + cooked_prefix[state] + "_" + food_filename[ingr_type] + ".png")
-	#sprite_2d.texture = file
-	pass
+	var file = load("res://media/" + cooked_prefix[state] + "_" + food_filename + ".png")
+	sprite_2d.texture = file
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
