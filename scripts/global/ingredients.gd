@@ -1,12 +1,12 @@
 extends Node
 
-enum {
+enum TYPE {
 	SHRIMP,
 	CARROT,
 }
 
 const SHAPES = {
-	SHRIMP: [
+	TYPE.SHRIMP: [
 		Vector2(-8, 33),
 		Vector2(14, 4),
 		Vector2(11, -65),
