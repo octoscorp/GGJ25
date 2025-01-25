@@ -12,6 +12,7 @@ extends Node2D
 
 
 var event_index = 0
+var cut_off = false
 
 func _ready() -> void:
 	next_event()
@@ -19,6 +20,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("next_event"):
 		next_event()
+		cut_off = true
 
 func next_event():
 	if event_index < events.size():
@@ -38,6 +40,9 @@ func animate_text(label : Label, text : String):
 	for char in text:
 		label.text += char
 		await get_tree().create_timer(0.02).timeout
+		if cut_off:
+			cut_off = false
+			break
 
 func delay(seconds):
 	await get_tree().create_timer(seconds).timeout
