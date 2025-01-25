@@ -35,6 +35,8 @@ const cooked_prefix = {
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var collision_polygon_2d: CollisionPolygon2D = $CollisionPolygon2D
+@onready var polygon_2d: Polygon2D = $Polygon2D
+@onready var progress_bar: TextureProgressBar = %ProgressBar
 
 var ingr_type
 var cook_time: float
@@ -56,6 +58,8 @@ func _init(type = INGREDIENTS.SHRIMP) -> void:
 func _ready() -> void:
 	# Set collision shape and sprite
 	collision_polygon_2d.polygon = shape
+	polygon_2d.polygon = shape
+	polygon_2d.uv = shape
 	_set_sprite()
 
 func get_score_value():
@@ -71,6 +75,19 @@ func get_score_value():
 			return int(-value / 2)
 
 func _set_sprite():
+	#temp logic before sprites
+	var col : Color
+	match state:
+		COOK_STATES.RAW:
+			col = Color(0.443, 0.446, 0.825)
+		COOK_STATES.MEDIUM:
+			col = Color(0.654, 0.71, 0.922)
+		COOK_STATES.COOKED:
+			col = Color(1, 0.639, 0.714)
+		COOK_STATES.BURNT:
+			col = Color(0.261, 0.182, 0.131)
+	polygon_2d.modulate = col
+	
 	#var file = load("res://media/" + cooked_prefix[state] + "_" + food_filename[ingr_type] + ".png")
 	#sprite_2d.texture = file
 	pass
@@ -84,6 +101,10 @@ func _physics_process(delta: float) -> void:
 		return
 	_calculate_temperature()
 	time_cooked += temperature * COOK_RATE
+	if time_cooked < cook_time:
+		progress_bar.value = (time_cooked/cook_time)
+	else:
+		progress_bar.value = (time_cooked/cook_time)/BURN_PERCENT
 	if time_cooked > BURN_PERCENT * cook_time:
 		_set_state(COOK_STATES.BURNT)
 	elif time_cooked >= cook_time and state <= COOK_STATES.MEDIUM:

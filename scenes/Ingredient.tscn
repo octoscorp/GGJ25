@@ -1,15 +1,47 @@
-[gd_scene load_steps=3 format=3 uid="uid://bj26u2kc06qb3"]
+[gd_scene load_steps=6 format=3 uid="uid://bj26u2kc06qb3"]
 
 [ext_resource type="Script" path="res://scripts/ingredient.gd" id="1_ofcp1"]
 [ext_resource type="Texture2D" uid="uid://dnc6r7tu5fo1d" path="res://media/icon.svg" id="2_hddgn"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_quijn"]
+friction = 0.2
+
+[sub_resource type="Gradient" id="Gradient_2gu12"]
+colors = PackedColorArray(0.560784, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gdv1b"]
+gradient = SubResource("Gradient_2gu12")
+fill_to = Vector2(0, 1)
+
 [node name="Ingredient" type="RigidBody2D"]
 collision_layer = 2
 collision_mask = 15
+mass = 3.0
+physics_material_override = SubResource("PhysicsMaterial_quijn")
+gravity_scale = 2.0
 script = ExtResource("1_ofcp1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_hddgn")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-63, -64, 64, -64, 62, 64, -64, 64)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+clip_children = 2
+texture_repeat = 2
+texture = ExtResource("2_hddgn")
+
+[node name="ProgressBar" type="TextureProgressBar" parent="Polygon2D"]
+unique_name_in_owner = true
+offset_left = -63.0
+offset_top = -63.0
+offset_right = 64.0
+offset_bottom = 64.0
+max_value = 1.0
+step = 0.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_progress = SubResource("GradientTexture2D_gdv1b")
+tint_progress = Color(1, 1, 1, 0.517647)
