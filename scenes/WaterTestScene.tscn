@@ -1,0 +1,150 @@
+[gd_scene load_steps=15 format=3 uid="uid://cjamn8qvatspf"]
+
+[ext_resource type="Script" path="res://scenes/water/water_generator.gd" id="1_1deq2"]
+[ext_resource type="PackedScene" uid="uid://d31n3c4fk812t" path="res://scenes/water/bubble_source.tscn" id="2_su6gr"]
+[ext_resource type="Texture2D" uid="uid://dnc6r7tu5fo1d" path="res://media/icon.svg" id="4_8041a"]
+[ext_resource type="PackedScene" uid="uid://bobgfyj5x0c7k" path="res://scenes/water/flame.tscn" id="4_f6cqb"]
+
+[sub_resource type="GDScript" id="GDScript_17tlb"]
+script/source = "extends AnimatableBody2D
+
+@export var flame : Node2D
+@export var bubble_source : BubbleSource
+
+func _physics_process(delta: float) -> void:
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		position += get_local_mouse_position()*delta*10
+	bubble_source.global_position.x = flame.global_position.x
+	var dist = bubble_source.global_position.distance_to(flame.global_position)
+	
+	bubble_source.bubble_cooldown = max(0, remap(dist, 32, 72, 0, 0.2))
+	bubble_source.bubbling = dist < 72
+	bubble_source.bubble_life_span = randf_range(0.1, remap(dist, 32, 72, 0.5, 0.1))
+"
+
+[sub_resource type="Shader" id="Shader_8fqvx"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+uniform float alpha_threshold : hint_range(0.0, 1.0);
+
+void fragment() {
+	vec4 c = textureLod(screen_texture, SCREEN_UV, 0.0);
+	if (c.a > 0.0001) {
+		c.rgb /= c.a;
+	}
+	COLOR *= c;
+
+	//COLOR.a = step(alpha_threshold, COLOR.a);
+
+	//COLOR.r = 1.0;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xroi1"]
+shader = SubResource("Shader_8fqvx")
+shader_parameter/alpha_threshold = 0.5
+
+[sub_resource type="Gradient" id="Gradient_bx06h"]
+offsets = PackedFloat32Array(0.95338, 1)
+colors = PackedColorArray(0.2025, 0.698625, 0.81, 1, 0.2025, 0.698625, 0.81, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ikkvv"]
+gradient = SubResource("Gradient_bx06h")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mtmsu"]
+size = Vector2(436, 792)
+
+[sub_resource type="Gradient" id="Gradient_lfyyb"]
+offsets = PackedFloat32Array(0.543124, 0.95338, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0.2025, 0.698625, 0.81, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gb16b"]
+gradient = SubResource("Gradient_lfyyb")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ufa1o"]
+friction = 0.2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n07fw"]
+radius = 32.0
+
+[node name="WaterTestScene" type="Node2D"]
+
+[node name="Pot" type="AnimatableBody2D" parent="." node_paths=PackedStringArray("flame", "bubble_source")]
+position = Vector2(750, 304)
+collision_mask = 0
+script = SubResource("GDScript_17tlb")
+flame = NodePath("../Flame")
+bubble_source = NodePath("BubbleSource")
+
+[node name="Polygon2D3" type="Polygon2D" parent="Pot"]
+color = Color(0.190762, 0.190762, 0.190762, 1)
+polygon = PackedVector2Array(-478, -240, -470, 176, 234, 168, 242, -232)
+
+[node name="WaterGenerator" type="CanvasGroup" parent="Pot"]
+self_modulate = Color(1, 1, 1, 0.537255)
+material = SubResource("ShaderMaterial_xroi1")
+position = Vector2(-112, -189)
+script = ExtResource("1_1deq2")
+water_texture = SubResource("GradientTexture2D_ikkvv")
+spawnRad = 10.0
+debug_spawn_action = "debug_spawn_water"
+particle_size = 8.0
+water_layer = 4
+water_mask = 15
+
+[node name="Polygon2D" type="Polygon2D" parent="Pot"]
+polygon = PackedVector2Array(-2, -14, 16, 4, -4, 13, -15, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pot"]
+position = Vector2(426, 160)
+shape = SubResource("RectangleShape2D_mtmsu")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Pot"]
+position = Vector2(-654, 152)
+shape = SubResource("RectangleShape2D_mtmsu")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Pot"]
+position = Vector2(-90, 368)
+rotation = 1.57079
+shape = SubResource("RectangleShape2D_mtmsu")
+
+[node name="BubbleSource" parent="Pot" instance=ExtResource("2_su6gr")]
+position = Vector2(-86, 152)
+water_texture = SubResource("GradientTexture2D_gb16b")
+spawnRad = 32.0
+debug_spawn_action = "debug_spawn_bubble"
+gravity_scale = -2.0
+damping = 3
+water_layer = 8
+water_mask = 11
+
+[node name="Polygon2D2" type="Polygon2D" parent="Pot"]
+position = Vector2(-705, -419)
+color = Color(0.427493, 0.427493, 0.427493, 1)
+polygon = PackedVector2Array(267, 179, 267, 571, 915, 571, 915, 179, 1323, 179, 1323, 227, 963, 227, 963, 611, 211, 611, 211, 179)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(732, 293)
+collision_layer = 2
+collision_mask = 15
+mass = 3.0
+physics_material_override = SubResource("PhysicsMaterial_ufa1o")
+gravity_scale = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_n07fw")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+scale = Vector2(0.515625, 0.515625)
+texture = ExtResource("4_8041a")
+
+[node name="Flame" parent="." instance=ExtResource("4_f6cqb")]

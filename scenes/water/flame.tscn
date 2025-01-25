@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://bobgfyj5x0c7k"]
+
+[sub_resource type="Gradient" id="Gradient_invbv"]
+offsets = PackedFloat32Array(0, 0.549161, 1)
+colors = PackedColorArray(0.937994, 0.332384, 0, 1, 0.924185, 0.748976, 0.121253, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5uyxs"]
+gradient = SubResource("Gradient_invbv")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="GDScript" id="GDScript_ax0gy"]
+script/source = "extends Polygon2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	scale = Vector2.ONE * randf_range(0.9, 1.1)
+"
+
+[node name="Flame" type="Area2D"]
+position = Vector2(656, 704)
+collision_layer = 0
+collision_mask = 6
+gravity_space_override = 1
+gravity_point_center = Vector2(0, -1)
+gravity_direction = Vector2(0, -1)
+gravity = 2000.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-80, 0, 80, 0, 0, -128)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-8, -104)
+texture = SubResource("GradientTexture2D_5uyxs")
+polygon = PackedVector2Array(0, 160, -24, 152, -40, 136, -40, 120, -24, 96, 0, 80, 16, 56, 16, 32, 32, 56, 40, 64, 48, 88, 40, 120, 16, 160)
+uv = PackedVector2Array(30.1009, 60.3607, 19.4126, 56.7979, 12.2871, 49.6724, 12.2871, 42.5469, 19.4126, 31.8587, 30.1009, 24.7332, 37.2264, 14.0449, 37.2264, 3.35668, 44.3519, 14.0449, 47.9146, 17.6077, 51.4774, 28.2959, 47.9146, 42.5469, 37.2264, 60.3607)
+script = SubResource("GDScript_ax0gy")
