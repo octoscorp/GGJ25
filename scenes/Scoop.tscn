@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://bor51ut8l5qux"]
+
+[ext_resource type="Script" path="res://scripts/pan.gd" id="1_n2ora"]
+[ext_resource type="Texture2D" uid="uid://cuxiwhgetit2v" path="res://media/Scoop.png" id="2_v8f3h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fhq7q"]
+size = Vector2(31.9868, 166.762)
+
+[node name="Scoop" type="Node2D"]
+script = ExtResource("1_n2ora")
+
+[node name="Handle" type="StaticBody2D" parent="."]
+position = Vector2(825, -247)
+collision_layer = 2
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Handle"]
+position = Vector2(175.877, 672.686)
+rotation = 0.139626
+shape = SubResource("RectangleShape2D_fhq7q")
+
+[node name="Body" type="AnimatableBody2D" parent="."]
+position = Vector2(510, -252)
+
+[node name="Body_Sprite2" type="Sprite2D" parent="Body"]
+position = Vector2(454, 868)
+rotation = -0.84823
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_v8f3h")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Body"]
+polygon = PackedVector2Array(269, 989, 315, 1045, 415, 1045, 455, 984, 450, 1013, 438, 1037, 420, 1050, 396, 1059, 369, 1064, 341, 1059, 314, 1050, 290, 1033, 277, 1016)
+
+[connection signal="mouse_entered" from="Handle" to="." method="_on_handle_mouse_entered"]
+[connection signal="mouse_exited" from="Handle" to="." method="_on_handle_mouse_exited"]
