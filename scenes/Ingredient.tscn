@@ -13,5 +13,3 @@ texture = ExtResource("2_hddgn")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-63, -64, 64, -64, 62, 64, -64, 64)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

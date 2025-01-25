@@ -2,8 +2,10 @@ extends RigidBody2D
 
 class_name Ingredient
 
-const COOK_RATE = 0.2
-const BURN_PERCENT = 1.40
+const COOK_RATE = 0.00005
+const BURN_PERCENT = 1.60
+const MAXIMUM_COOK_DISTANCE = 300
+const MAX_TEMP = 140
 
 const COOK_TIMES = {
 	INGREDIENTS.SHRIMP: 10.0,
@@ -29,7 +31,6 @@ const cooked_prefix = {
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var collision_polygon_2d: CollisionPolygon2D = $CollisionPolygon2D
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var ingr_type
 var cook_time: float
@@ -65,13 +66,25 @@ func _physics_process(delta: float) -> void:
 	# Cook the ingredient
 	if state == COOK_STATES.BURNT:
 		return
+	_calculate_temperature()
 	time_cooked += temperature * COOK_RATE
-	if time_cooked > BURN_PERCENT:
+	if time_cooked > BURN_PERCENT * cook_time:
 		_set_state(COOK_STATES.BURNT)
+	elif time_cooked >= cook_time and state <= COOK_STATES.MEDIUM:
+		_set_state(COOK_STATES.COOKED)
+	elif time_cooked >= cook_time / 2  and state == COOK_STATES.RAW:
+		_set_state(COOK_STATES.MEDIUM)
+
+func _calculate_temperature():
+	var flame = get_tree().get_nodes_in_group("Flame")[0] as Node2D
+	var distance_to_flame = (flame.position - position).length()
+	
+	temperature = clampf(MAXIMUM_COOK_DISTANCE - distance_to_flame, 0, MAX_TEMP)
 
 func _set_state(new_state = COOK_STATES.RAW):
 	state = new_state
 	_set_sprite()
+	print("State set to " + cooked_prefix[state])
 	if state == COOK_STATES.BURNT:
 		# TODO Play sound of burning
 		pass
