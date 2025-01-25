@@ -9,6 +9,7 @@ const ROTATION_LIMIT = 30
 # The handle is referred to often enough to warrant defining it as a var
 @onready var handle: StaticBody2D = $Handle
 @onready var body: StaticBody2D = $Body
+@onready var stove_cast: RayCast2D = $Handle/StoveCast
 
 # Bool representing when the mouse is over the handle
 var hovered = false
@@ -56,13 +57,18 @@ func _physics_process(delta: float) -> void:
 	var b_tform = Transform2D.IDENTITY.rotated(rot_rad)
 	b_tform.origin = b_pos
 	body.transform = b_tform
-	
-	
+	if Input.is_action_pressed("ui_accept"):
+		b_tform.origin.y += 100
+		body.transform = b_tform
 	
 	# Move handle to mouse location
 	# This is done last to make the body "lag" a tick behind the handle
 	if selected:
 		handle.position = get_viewport().get_mouse_position() + mouse_offset
+	# Prevent pan from going through the stove
+		stove_cast.force_raycast_update()
+		if stove_cast.is_colliding():
+			handle.position += stove_cast.get_collision_point() - stove_cast.to_global(stove_cast.target_position)
 
 # Called every time the game receives input
 func _input(event: InputEvent) -> void:

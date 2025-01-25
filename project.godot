@@ -61,6 +61,7 @@ next_event={
 2d_physics/layer_3="water"
 2d_physics/layer_4="bubble"
 2d_physics/layer_5="ui"
+2d_physics/layer_6="stove"
 
 [rendering]
 

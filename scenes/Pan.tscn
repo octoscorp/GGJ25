@@ -34,6 +34,11 @@ texture = SubResource("AtlasTexture_vfp4r")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Handle"]
 polygon = PackedVector2Array(-288, -48, -145, -57, 2, -45, 168, -12, 179, 31, 165, 52, -4, 13, -162, 7, -262, 16, -275, 23, -293, 24)
 
+[node name="StoveCast" type="RayCast2D" parent="Handle"]
+position = Vector2(0, -1167)
+target_position = Vector2(0, 1494)
+collision_mask = 32
+
 [node name="Body" type="AnimatableBody2D" parent="."]
 position = Vector2(510, -252)
 collision_mask = 0
@@ -43,8 +48,10 @@ position = Vector2(-430, 100)
 scale = Vector2(0.947318, 0.947318)
 texture = SubResource("AtlasTexture_vr4e2")
 
-[node name="BubbleSource" parent="Body" instance=ExtResource("3_8w0h2")]
+[node name="BubbleSource" parent="Body" node_paths=PackedStringArray("left_limit", "right_limit") instance=ExtResource("3_8w0h2")]
 position = Vector2(-434, 286)
+left_limit = NodePath("../LeftBubbleLimit")
+right_limit = NodePath("../RightBubbleLimit")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
 position = Vector2(-134, 148)
@@ -64,6 +71,12 @@ position = Vector2(-168, -114)
 
 [node name="BotLeftLimit" type="Node2D" parent="Body"]
 position = Vector2(-708, 318)
+
+[node name="LeftBubbleLimit" type="Marker2D" parent="Body"]
+position = Vector2(-699, 301)
+
+[node name="RightBubbleLimit" type="Marker2D" parent="Body"]
+position = Vector2(-168, 300)
 
 [connection signal="mouse_entered" from="Handle" to="." method="_on_handle_mouse_entered"]
 [connection signal="mouse_exited" from="Handle" to="." method="_on_handle_mouse_exited"]

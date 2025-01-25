@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q0ma4"]
-size = Vector2(1766, 88)
+size = Vector2(2068, 348)
 
 [sub_resource type="Shader" id="Shader_8fqvx"]
 code = "shader_type canvas_item;
@@ -64,15 +64,18 @@ script = SubResource("GDScript_8uu4j")
 
 [node name="OvenTop" type="StaticBody2D" parent="."]
 position = Vector2(1151, 914)
+collision_layer = 32
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OvenTop"]
+position = Vector2(-151, 130)
 shape = SubResource("RectangleShape2D_q0ma4")
 
 [node name="Pan" parent="." instance=ExtResource("1_rqgy4")]
-position = Vector2(759, 594)
+position = Vector2(751, 787)
 
 [node name="Flame" parent="." instance=ExtResource("2_1cn4q")]
-position = Vector2(832, 705)
+position = Vector2(826, 822)
 
 [node name="WaterGenerator" type="CanvasGroup" parent="." node_paths=PackedStringArray("spawn_zone")]
 self_modulate = Color(1, 1, 1, 0.537255)

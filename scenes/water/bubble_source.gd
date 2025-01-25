@@ -5,6 +5,8 @@ var bubbling = false
 var bubble_life_span = 1.0
 
 @onready var start_y = position.y
+@export var left_limit: Node2D
+@export var right_limit: Node2D
 
 func _on_timer_timeout() -> void:
 	if bubbling:
@@ -44,7 +46,7 @@ func grow_bubble(size:float, data):
 func _physics_process(delta: float) -> void:
 	# Here's hoping there's exactly one flame in the scene :)))
 	var flame = get_tree().get_nodes_in_group("Flame")[0] as Node2D
-	global_position.x = flame.global_position.x
+	global_position.x = clampf(flame.global_position.x, left_limit.global_position.x, right_limit.global_position.x)
 	var dist = global_position.distance_to(flame.global_position)
 	position.y = start_y
 	
