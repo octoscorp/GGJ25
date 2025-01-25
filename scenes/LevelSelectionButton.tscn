@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdf4wv0no4u06"]
+
+[ext_resource type="Script" path="res://scripts/LevelTransition.gd" id="1_gdu56"]
+[ext_resource type="FontFile" uid="uid://dvtesb74pn2wo" path="res://media/Streetwear.otf" id="1_qna2r"]
+
+[node name="Button" type="Button"]
+offset_left = 1.0
+offset_top = 3.0
+offset_right = 386.0
+offset_bottom = 260.0
+theme_override_fonts/font = ExtResource("1_qna2r")
+theme_override_font_sizes/font_size = 100
+text = "Level 1"
+flat = true
+script = ExtResource("1_gdu56")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
