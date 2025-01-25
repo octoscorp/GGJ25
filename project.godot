@@ -18,6 +18,7 @@ config/icon="res://media/icon.svg"
 [autoload]
 
 DumpEverything="*res://scenes/water/dump_everything.gd"
+INGREDIENTS="*res://scripts/global/ingredients.gd"
 
 [display]
 

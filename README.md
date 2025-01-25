@@ -5,8 +5,10 @@
 Media - for images, sound, etc
 
 Scripts - for, you guessed it, scripts
+ - Globals - things available to all scripts at all times
 
 Scenes - for scenes
+ - Components - for parts that make up scenes and get kept on a shelf
 
 Don't be afraid to make sub-folders!
 
