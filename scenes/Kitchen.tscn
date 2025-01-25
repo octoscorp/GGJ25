@@ -1,8 +1,23 @@
-[gd_scene load_steps=9 format=3 uid="uid://d37kie6jfac21"]
+[gd_scene load_steps=11 format=3 uid="uid://d37kie6jfac21"]
 
+[ext_resource type="PackedScene" uid="uid://bj26u2kc06qb3" path="res://scenes/Ingredient.tscn" id="1_j4gpi"]
 [ext_resource type="PackedScene" uid="uid://buow4sx2jp1cv" path="res://scenes/Pan.tscn" id="1_rqgy4"]
 [ext_resource type="PackedScene" uid="uid://bobgfyj5x0c7k" path="res://scenes/water/flame.tscn" id="2_1cn4q"]
 [ext_resource type="Script" path="res://scenes/water/water_generator.gd" id="3_3bymv"]
+
+[sub_resource type="GDScript" id="GDScript_8uu4j"]
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q0ma4"]
 size = Vector2(1766, 88)
@@ -42,6 +57,10 @@ fill_to = Vector2(0.5, 0)
 metadata/_snap_enabled = true
 
 [node name="Kitchen" type="Node2D"]
+script = SubResource("GDScript_8uu4j")
+
+[node name="Ingredient" parent="." instance=ExtResource("1_j4gpi")]
+position = Vector2(953, 48)
 
 [node name="OvenTop" type="StaticBody2D" parent="."]
 position = Vector2(900, 900)
