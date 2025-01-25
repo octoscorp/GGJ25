@@ -8,7 +8,7 @@ const MAXIMUM_COOK_DISTANCE = 300
 const MAX_TEMP = 140
 
 const COOK_TIMES = {
-	INGREDIENTS.SHRIMP: 10.0,
+	INGREDIENTS.SHRIMP: 3.0,
 }
 
 const POINT_SCORES = {
@@ -37,6 +37,9 @@ const cooked_prefix = {
 @onready var collision_polygon_2d: CollisionPolygon2D = $CollisionPolygon2D
 @onready var polygon_2d: Polygon2D = $Polygon2D
 @onready var progress_bar: TextureProgressBar = %ProgressBar
+@onready var cooked_fx: GPUParticles2D = $CookedFX
+@onready var burnt_fx: GPUParticles2D = $BurntFX
+@onready var smoke_fx: GPUParticles2D = $SmokeFX
 
 var ingr_type
 var cook_time: float
@@ -122,6 +125,10 @@ func _set_state(new_state = COOK_STATES.RAW):
 	state = new_state
 	_set_sprite()
 	print("State set to " + cooked_prefix[state])
+	if state == COOK_STATES.COOKED:
+		cooked_fx.emitting = true
 	if state == COOK_STATES.BURNT:
+		smoke_fx.emitting = true
+		burnt_fx.emitting = true
 		# TODO Play sound of burning
 		pass
