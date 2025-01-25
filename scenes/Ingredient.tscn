@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://dnc6r7tu5fo1d" path="res://media/icon.svg" id="2_hddgn"]
 
 [node name="Ingredient" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 15
 script = ExtResource("1_ofcp1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

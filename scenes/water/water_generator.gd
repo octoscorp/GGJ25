@@ -11,6 +11,7 @@ var objects: Array[Array] = []
 @export var gravity_scale := 1.0
 @export var damping := 0
 @export var mass := 0.1
+@export var spawn_zone : Control
 @export_flags_2d_physics var water_layer = 1
 @export_flags_2d_physics var water_mask = 1
 
@@ -75,7 +76,11 @@ func _exit_tree():
 		RenderingServer.free_rid(img)
 
 func spawn_water():
-	create_object(global_position + Vector2(randf()-0.5, randf()-0.5).normalized()*spawnRad*randf())
+	if spawn_zone == null:
+		create_object(global_position + Vector2(randf()-0.5, randf()-0.5).normalized()*spawnRad*randf())
+	else:
+		var rect = spawn_zone.get_global_rect()
+		create_object(rect.position + rect.size * Vector2(randf(), randf()))
 
 func delete_water(obj):
 	objects.erase(obj)

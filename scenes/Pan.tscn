@@ -23,7 +23,7 @@ script = ExtResource("1_i5q1y")
 
 [node name="Handle" type="StaticBody2D" parent="."]
 position = Vector2(688, -240)
-collision_layer = 2
+collision_layer = 16
 input_pickable = true
 
 [node name="Handle_Sprite" type="Sprite2D" parent="Handle"]
