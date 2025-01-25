@@ -75,6 +75,14 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released('select'):
 		selected = false
 
+# Return true if point is inside the pan
+func is_in_pan(point: Vector2):
+	if point.x > $Body/TopRightLimit.position.x or point.x < $Body/BotLeftLimit.position.x:
+		return false
+	if point.y > $Body/TopRightLimit.position.y or point.y < $Body/BotLeftLimit.position.y:
+		return false
+	return true
+
 # Handle emits a signal when mouse enters - catch and handle it
 func _on_handle_mouse_entered() -> void:
 	hovered = true

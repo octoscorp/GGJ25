@@ -23,7 +23,7 @@ script = ExtResource("1_i5q1y")
 
 [node name="Handle" type="StaticBody2D" parent="."]
 position = Vector2(688, -240)
-collision_layer = 2
+collision_layer = 16
 input_pickable = true
 
 [node name="Handle_Sprite" type="Sprite2D" parent="Handle"]
@@ -58,6 +58,12 @@ shape = SubResource("RectangleShape2D_8m7pr")
 position = Vector2(-430, 364)
 rotation = -1.57079
 shape = SubResource("RectangleShape2D_7k7v4")
+
+[node name="TopRightLimit" type="Node2D" parent="Body"]
+position = Vector2(-168, -114)
+
+[node name="BotLeftLimit" type="Node2D" parent="Body"]
+position = Vector2(-708, 318)
 
 [connection signal="mouse_entered" from="Handle" to="." method="_on_handle_mouse_entered"]
 [connection signal="mouse_exited" from="Handle" to="." method="_on_handle_mouse_exited"]

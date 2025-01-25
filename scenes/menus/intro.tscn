@@ -1,0 +1,149 @@
+[gd_scene load_steps=12 format=3 uid="uid://dgtexfedw1eea"]
+
+[ext_resource type="Script" path="res://scenes/menus/event_sequencer.gd" id="1_3djw8"]
+[ext_resource type="Texture2D" uid="uid://dnc6r7tu5fo1d" path="res://media/icon.svg" id="1_eb86j"]
+[ext_resource type="Script" path="res://scenes/menus/animation_helper.gd" id="2_13h60"]
+[ext_resource type="Texture2D" uid="uid://bsp0yv0mny5lx" path="res://media/shrimp_game_button.png" id="2_orsya"]
+[ext_resource type="FontFile" uid="uid://dum8djm4c46f1" path="res://media/Child Hood.otf" id="4_xdoym"]
+
+[sub_resource type="Animation" id="Animation_bhoo5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GF:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2284, 692)]
+}
+
+[sub_resource type="Animation" id="Animation_qqlfq"]
+resource_name = "intro"
+length = 0.9
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GF:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(2284, 692), Vector2(1581, 681)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextBox")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.775),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"appear"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1i6tk"]
+_data = {
+"RESET": SubResource("Animation_bhoo5"),
+"intro": SubResource("Animation_qqlfq")
+}
+
+[sub_resource type="Gradient" id="Gradient_u7rji"]
+offsets = PackedFloat32Array(0, 0.55102, 1)
+colors = PackedColorArray(0.728342, 0.345691, 0.371096, 1, 0.728436, 0.345544, 0.370971, 0.943311, 0.73, 0.3431, 0.368893, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_87ikn"]
+gradient = SubResource("Gradient_u7rji")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_x3vhm"]
+font = ExtResource("4_xdoym")
+font_size = 96
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Intro" type="Node2D"]
+script = ExtResource("1_3djw8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1i6tk")
+}
+autoplay = "intro"
+
+[node name="GF" type="Node2D" parent="."]
+position = Vector2(2284, 692)
+
+[node name="Polygon2D2" type="Polygon2D" parent="GF"]
+color = Color(0, 0.453363, 0.510581, 1)
+polygon = PackedVector2Array(-173, -186, 324, -169, 378, -317, 350, -439, 225, -521, 40, -555, -93, -529, -168, -388, -179, -274)
+
+[node name="Polygon2D" type="Polygon2D" parent="GF"]
+position = Vector2(50, 193)
+polygon = PackedVector2Array(-190, 76, 228, 90, 209, -69, 186, -158, 155, -248, 338, -378, 121, -335, 104, -401, 149, -445, 182, -494, 189, -569, 162, -623, 80, -651, -19, -657, -79, -634, -128, -586, -141, -524, -125, -459, -96, -419, -120, -366, -145, -329, -387, -401, -175, -253, -200, -162, -220, -29, -221, 35, -223, 76)
+
+[node name="Icon" type="Sprite2D" parent="GF"]
+position = Vector2(52.0001, -333)
+scale = Vector2(1.64063, 1.67188)
+texture = ExtResource("1_eb86j")
+
+[node name="Sprite2D" type="Sprite2D" parent="GF/Icon"]
+position = Vector2(-28.6477, 15.5514)
+rotation = 0.261799
+scale = Vector2(0.410095, 0.239222)
+texture = SubResource("GradientTexture2D_87ikn")
+
+[node name="Sprite2D2" type="Sprite2D" parent="GF/Icon"]
+position = Vector2(29.8666, 12.5608)
+rotation = -0.261799
+scale = Vector2(0.433815, 0.253059)
+texture = SubResource("GradientTexture2D_87ikn")
+
+[node name="TextBox" type="Node2D" parent="." node_paths=PackedStringArray("target_label")]
+position = Vector2(743, 498)
+script = ExtResource("2_13h60")
+target_label = NodePath("NinePatchRect/SpeechLabel")
+start_hidden = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TextBox"]
+offset_left = -444.0
+offset_top = -266.0
+offset_right = 434.0
+offset_bottom = 303.0
+texture = ExtResource("2_orsya")
+region_rect = Rect2(11, 6, 338, 181)
+patch_margin_left = 87
+patch_margin_top = 86
+patch_margin_right = 94
+patch_margin_bottom = 70
+
+[node name="SpeechLabel" type="Label" parent="TextBox/NinePatchRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.056
+anchor_top = 0.091
+anchor_right = 0.929
+anchor_bottom = 0.883
+offset_left = -0.496002
+offset_top = 0.405998
+offset_right = 0.485962
+offset_bottom = 0.477997
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_x3vhm")
+horizontal_alignment = 1
+autowrap_mode = 3
