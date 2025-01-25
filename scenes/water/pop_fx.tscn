@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://rmsvviqgqgre"]
+
+[ext_resource type="Script" path="res://scenes/water/pop_fx.gd" id="1_8q5ri"]
+[ext_resource type="Texture2D" uid="uid://cqmbvn8k4wpcc" path="res://media/pop_fx.png" id="1_51lg8"]
+
+[node name="PopFx" type="Node2D"]
+script = ExtResource("1_8q5ri")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_51lg8")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.017
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="queue_free"]

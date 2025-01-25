@@ -19,12 +19,22 @@ func spawn_water():
 	var tween = create_tween()
 	tween.tween_method(grow_bubble.bind(pair), 0.0, 1.0, 0.3)
 	pair.append(bubble_life_span)
+	pair.append(0.0) # size
 
-func grow_bubble(size:float, triplet):
-	if triplet[2] <= 0: # bubble has already popped
+func delete_water(obj_data):
+	var pos = (PhysicsServer2D.body_get_state(obj_data[0], PhysicsServer2D.BODY_STATE_TRANSFORM) as Transform2D).origin
+	var pop_fx = preload("res://scenes/water/pop_fx.tscn").instantiate()
+	add_child(pop_fx)
+	pop_fx.global_position = pos
+	pop_fx.scale = Vector2.ONE * obj_data[3]
+	super.delete_water(obj_data)
+	
+
+func grow_bubble(size:float, data):
+	if data[2] <= 0: # bubble has already popped
 		return
-	var body = triplet[0]
-	var img = triplet[1]
+	var body = data[0]
+	var img = data[1]
 	var tform := PhysicsServer2D.body_get_state(body, PhysicsServer2D.BODY_STATE_TRANSFORM) as Transform2D
 	tform.origin -= global_position
 	tform.x = Vector2(size, 0)
@@ -44,7 +54,9 @@ func _physics_process(delta: float) -> void:
 	
 	super._physics_process(delta)
 	var i = 0
-	for triplet in objects:
-		triplet[2] -= delta
-		if triplet[2] <= 0:
-			delete_water(triplet)
+	for data in objects:
+		data[2] -= delta
+		if data[2] <= 0:
+			delete_water(data)
+		data[3] += delta*3
+		data[3] = clampf(data[3], 0.0, 1.0)
