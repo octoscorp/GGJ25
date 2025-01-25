@@ -15,6 +15,10 @@ run/main_scene="res://scenes/Kitchen.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://media/icon.svg"
 
+[autoload]
+
+INGREDIENTS="*res://scripts/global/ingredients.gd"
+
 [display]
 
 window/size/viewport_width=1920
