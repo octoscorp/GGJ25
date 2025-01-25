@@ -1,10 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://buow4sx2jp1cv"]
+[gd_scene load_steps=9 format=3 uid="uid://buow4sx2jp1cv"]
 
 [ext_resource type="Script" path="res://scripts/pan.gd" id="1_i5q1y"]
-[ext_resource type="Texture2D" uid="uid://dnc6r7tu5fo1d" path="res://media/icon.svg" id="1_qukuc"]
+[ext_resource type="PackedScene" uid="uid://d31n3c4fk812t" path="res://scenes/water/bubble_source.tscn" id="3_8w0h2"]
+[ext_resource type="Texture2D" uid="uid://8fig5we6cwiy" path="res://media/pot.png" id="4_h4ms3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fhq7q"]
-size = Vector2(630, 106)
+size = Vector2(466, 108)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfp4r"]
+atlas = ExtResource("4_h4ms3")
+region = Rect2(746, 530, 499, 127)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vr4e2"]
+atlas = ExtResource("4_h4ms3")
+region = Rect2(91, 423, 656, 522)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8m7pr"]
+size = Vector2(69, 650)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7k7v4"]
+size = Vector2(93, 888)
 
 [node name="Pan" type="Node2D"]
 script = ExtResource("1_i5q1y")
@@ -15,23 +30,38 @@ collision_layer = 2
 input_pickable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Handle"]
+position = Vector2(-81, -9)
 shape = SubResource("RectangleShape2D_fhq7q")
 
 [node name="Handle_Sprite" type="Sprite2D" parent="Handle"]
-scale = Vector2(4.92188, 0.828125)
-texture = ExtResource("1_qukuc")
+position = Vector2(-81, -1)
+scale = Vector2(0.951922, 0.910125)
+texture = SubResource("AtlasTexture_vfp4r")
 
-[node name="Body" type="StaticBody2D" parent="."]
+[node name="Body" type="AnimatableBody2D" parent="."]
 position = Vector2(510, -252)
+collision_mask = 0
 
-[node name="Body_Sprite" type="Sprite2D" parent="Body"]
-position = Vector2(-510, 257)
-scale = Vector2(7.96875, 4.76562)
-texture = ExtResource("1_qukuc")
+[node name="BodySprite" type="Sprite2D" parent="Body"]
+position = Vector2(-430, 132)
+scale = Vector2(1.31226, 1.31226)
+texture = SubResource("AtlasTexture_vr4e2")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Body"]
-position = Vector2(-510, 252)
-polygon = PackedVector2Array(-490, -300, -490, 290, 490, 290, 490, -300, 510, -300, 510, 310, -510, 310, -510, -300)
+[node name="BubbleSource" parent="Body" instance=ExtResource("3_8w0h2")]
+position = Vector2(-446, 364)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+position = Vector2(-24.5, 167)
+shape = SubResource("RectangleShape2D_8m7pr")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Body"]
+position = Vector2(-838, 156)
+shape = SubResource("RectangleShape2D_8m7pr")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Body"]
+position = Vector2(-434, 460)
+rotation = -1.57079
+shape = SubResource("RectangleShape2D_7k7v4")
 
 [connection signal="mouse_entered" from="Handle" to="." method="_on_handle_mouse_entered"]
 [connection signal="mouse_exited" from="Handle" to="." method="_on_handle_mouse_exited"]

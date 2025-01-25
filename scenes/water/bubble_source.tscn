@@ -1,12 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://d31n3c4fk812t"]
+[gd_scene load_steps=5 format=3 uid="uid://d31n3c4fk812t"]
 
 [ext_resource type="Script" path="res://scenes/water/bubble_source.gd" id="1_qa6uk"]
+
+[sub_resource type="Gradient" id="Gradient_lfyyb"]
+offsets = PackedFloat32Array(0.543124, 0.95338, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0.2025, 0.698625, 0.81, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r4qc5"]
+gradient = SubResource("Gradient_lfyyb")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bjbvo"]
 radius = 48.0
 
 [node name="BubbleSource" type="Marker2D"]
 script = ExtResource("1_qa6uk")
+water_texture = SubResource("GradientTexture2D_r4qc5")
+spawnRad = 32.0
+debug_spawn_action = "debug_spawn_bubble"
+gravity_scale = -2.0
+damping = 3
+water_layer = 8
+water_mask = 11
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

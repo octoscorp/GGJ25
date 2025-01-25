@@ -4,16 +4,14 @@ var bubble_cooldown = 0.2
 var bubbling = false
 var bubble_life_span = 1.0
 
+@onready var start_y = position.y
+
 func _on_timer_timeout() -> void:
-	print("ping!")
 	if bubbling:
 		spawn_water()
 	$Timer.wait_time = max(0.001, bubble_cooldown)
 	$Timer.start()
 
-func _ready() -> void:
-	PhysicsServer2D.area_set_collision_mask($Area2D, 5)
-	print(PhysicsServer2D.area_get_collision_mask($Area2D))
 
 func spawn_water():
 	super.spawn_water()
@@ -34,6 +32,16 @@ func grow_bubble(size:float, triplet):
 	RenderingServer.canvas_item_set_transform(img, tform.scaled_local(Vector2.ONE * size))
 
 func _physics_process(delta: float) -> void:
+	# Here's hoping there's exactly one flame in the scene :)))
+	var flame = get_tree().get_nodes_in_group("Flame")[0] as Node2D
+	global_position.x = flame.global_position.x
+	var dist = global_position.distance_to(flame.global_position)
+	position.y = start_y
+	
+	bubble_cooldown = max(0, remap(dist, 32, 72, 0, 0.2))
+	bubbling = dist < 72
+	bubble_life_span = randf_range(0.1, remap(dist, 32, 72, 0.5, 0.1))
+	
 	super._physics_process(delta)
 	var i = 0
 	for triplet in objects:

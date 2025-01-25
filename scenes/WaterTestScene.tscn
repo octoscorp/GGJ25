@@ -14,15 +14,9 @@ script/source = "extends AnimatableBody2D
 func _physics_process(delta: float) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		position += get_local_mouse_position()*delta*10
-	bubble_source.global_position.x = flame.global_position.x
-	var dist = bubble_source.global_position.distance_to(flame.global_position)
-	
-	bubble_source.bubble_cooldown = max(0, remap(dist, 32, 72, 0, 0.2))
-	bubble_source.bubbling = dist < 72
-	bubble_source.bubble_life_span = randf_range(0.1, remap(dist, 32, 72, 0.5, 0.1))
 "
 
-[sub_resource type="Shader" id="Shader_8fqvx"]
+[sub_resource type="Shader" id="Shader_m8hpn"]
 code = "shader_type canvas_item;
 render_mode unshaded;
 
@@ -42,15 +36,15 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xroi1"]
-shader = SubResource("Shader_8fqvx")
+shader = SubResource("Shader_m8hpn")
 shader_parameter/alpha_threshold = 0.5
 
-[sub_resource type="Gradient" id="Gradient_bx06h"]
+[sub_resource type="Gradient" id="Gradient_cxekd"]
 offsets = PackedFloat32Array(0.95338, 1)
 colors = PackedColorArray(0.2025, 0.698625, 0.81, 1, 0.2025, 0.698625, 0.81, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ikkvv"]
-gradient = SubResource("Gradient_bx06h")
+gradient = SubResource("Gradient_cxekd")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
@@ -120,12 +114,6 @@ shape = SubResource("RectangleShape2D_mtmsu")
 [node name="BubbleSource" parent="Pot" instance=ExtResource("2_su6gr")]
 position = Vector2(-86, 152)
 water_texture = SubResource("GradientTexture2D_gb16b")
-spawnRad = 32.0
-debug_spawn_action = "debug_spawn_bubble"
-gravity_scale = -2.0
-damping = 3
-water_layer = 8
-water_mask = 11
 
 [node name="Polygon2D2" type="Polygon2D" parent="Pot"]
 position = Vector2(-705, -419)

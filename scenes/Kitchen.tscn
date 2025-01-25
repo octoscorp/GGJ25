@@ -1,9 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://d37kie6jfac21"]
+[gd_scene load_steps=9 format=3 uid="uid://d37kie6jfac21"]
 
 [ext_resource type="PackedScene" uid="uid://buow4sx2jp1cv" path="res://scenes/Pan.tscn" id="1_rqgy4"]
+[ext_resource type="PackedScene" uid="uid://bobgfyj5x0c7k" path="res://scenes/water/flame.tscn" id="2_1cn4q"]
+[ext_resource type="Script" path="res://scenes/water/water_generator.gd" id="3_3bymv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q0ma4"]
 size = Vector2(1766, 88)
+
+[sub_resource type="Shader" id="Shader_8fqvx"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+uniform float alpha_threshold : hint_range(0.0, 1.0);
+
+void fragment() {
+	vec4 c = textureLod(screen_texture, SCREEN_UV, 0.0);
+	if (c.a > 0.0001) {
+		c.rgb /= c.a;
+	}
+	COLOR *= c;
+
+	//COLOR.a = step(alpha_threshold, COLOR.a);
+
+	//COLOR.r = 1.0;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l5etb"]
+shader = SubResource("Shader_8fqvx")
+shader_parameter/alpha_threshold = 0.5
+
+[sub_resource type="Gradient" id="Gradient_bx06h"]
+offsets = PackedFloat32Array(0.95338, 1)
+colors = PackedColorArray(0.2025, 0.698625, 0.81, 1, 0.2025, 0.698625, 0.81, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8lo26"]
+gradient = SubResource("Gradient_bx06h")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
 
 [node name="Kitchen" type="Node2D"]
 
@@ -15,3 +51,19 @@ shape = SubResource("RectangleShape2D_q0ma4")
 
 [node name="Pan" parent="." instance=ExtResource("1_rqgy4")]
 position = Vector2(787, 390)
+
+[node name="Flame" parent="." instance=ExtResource("2_1cn4q")]
+position = Vector2(836, 855)
+
+[node name="WaterGenerator" type="CanvasGroup" parent="."]
+self_modulate = Color(1, 1, 1, 0.537255)
+material = SubResource("ShaderMaterial_l5etb")
+position = Vector2(783, 88)
+script = ExtResource("3_3bymv")
+water_texture = SubResource("GradientTexture2D_8lo26")
+spawnRad = 10.0
+debug_spawn_action = "debug_spawn_water"
+particle_size = 32.0
+texture_size = 64.0
+water_layer = 4
+water_mask = 15

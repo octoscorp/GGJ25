@@ -31,19 +31,33 @@ func _process(_delta: float) -> void:
 	pass
 
 # Called every physics frame (close to constant time). 'delta' is the elapsed time since the previous frame.
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	
+	# Animated bodies only like one tform update per phys step so we'll defer
+	# the update to the end of the step
+	var b_pos = body.position
+
+	
 	# Work out handle movement relative to body
 	var target = handle.position - body_handle_offset
 	
 	# Move body to match handle movement
-	spr_x_change = lerpf(spr_x_change, (target.x - body.position.x) * 0.5, STIFFNESS)
-	body.position.x += spr_x_change
+	spr_x_change = lerpf(spr_x_change, (target.x - b_pos.x) * 0.5, STIFFNESS)
+	b_pos.x += spr_x_change
 	
-	spr_y_change = lerpf(spr_y_change, (target.y - body.position.y) * 0.5, STIFFNESS)
-	body.position.y += spr_y_change
-	
+	spr_y_change = lerpf(spr_y_change, (target.y - b_pos.y) * 0.5, STIFFNESS)
+	b_pos.y += spr_y_change
+		
 	# Rotate body based on vertical movement
-	body.rotation_degrees = clampf(spr_y_change * ROTATION_STRENGTH, -ROTATION_LIMIT, ROTATION_LIMIT)
+	var rot_deg = clampf(spr_y_change * ROTATION_STRENGTH, -ROTATION_LIMIT, ROTATION_LIMIT)
+	
+	# Perform transform update
+	var rot_rad = deg_to_rad(rot_deg)
+	var b_tform = Transform2D.IDENTITY.rotated(rot_rad)
+	b_tform.origin = b_pos
+	body.transform = b_tform
+	
+	
 	
 	# Move handle to mouse location
 	# This is done last to make the body "lag" a tick behind the handle
