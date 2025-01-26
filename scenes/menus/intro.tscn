@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scenes/menus/animation_helper.gd" id="2_13h60"]
 [ext_resource type="Texture2D" uid="uid://bsp0yv0mny5lx" path="res://media/shrimp_game_button.png" id="2_orsya"]
 [ext_resource type="FontFile" uid="uid://dum8djm4c46f1" path="res://media/Child Hood.otf" id="4_xdoym"]
-[ext_resource type="AudioStream" uid="uid://bb10ui0p4h37w" path="res://media/sfx/gibberish_male.mp3" id="6_f5flr"]
+[ext_resource type="AudioStream" uid="uid://bojfsrnd5mhpv" path="res://media/sfx/gibberish_female.mp3" id="6_hw6s7"]
 
 [sub_resource type="Animation" id="Animation_bhoo5"]
 length = 0.001
@@ -150,4 +150,4 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="ChatterSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_f5flr")
+stream = ExtResource("6_hw6s7")

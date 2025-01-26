@@ -5,9 +5,9 @@ extends Node2D
 @onready var events = [
 	auto_next_event.bind(
 		play_anim.bind("intro")),
-	animate_text.bind(%SpeechLabel, "What's up home slice?"),
-	animate_text.bind(%SpeechLabel, "Give me a very Shrimpy meal :)"),
-	animate_text.bind(%SpeechLabel, "yeah let's fuckin GOOOOOOOOOOOO"),
+	animate_text.bind(%SpeechLabel, "Hey babe, you know how I get my cravings?"),
+	animate_text.bind(%SpeechLabel, "I'm really desperate for some shrimp right now."),
+	animate_text.bind(%SpeechLabel, "So cook some for me or I'm finding someone who can!"),
 	get_tree().change_scene_to_file.bind("res://scenes/Kitchen.tscn"),
 	]
 
