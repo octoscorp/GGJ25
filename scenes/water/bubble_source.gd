@@ -58,7 +58,7 @@ func _physics_process(delta: float) -> void:
 	bubble_life_span = randf_range(0.1, remap(dist, 32, 72, 0.5, 0.1))
 	
 	var vol = db_to_linear(sfx.volume_db)
-	target_bubble_volume = clampf(remap(dist, 0, 128, 1, 0), 0, 1)
+	target_bubble_volume = clampf(remap(dist, 0, 128, 1, 0), 0, 1)*2.0
 	vol = move_toward(vol, target_bubble_volume, delta*0.5)
 	sfx.volume_db = linear_to_db(vol)
 	

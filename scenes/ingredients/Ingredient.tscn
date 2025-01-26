@@ -19,7 +19,7 @@ colors = PackedColorArray(0.560784, 0, 0, 1, 1, 1, 1, 1)
 gradient = SubResource("Gradient_2gu12")
 fill_to = Vector2(0, 1)
 
-[node name="Ingredient" type="RigidBody2D"]
+[node name="Ingredient" type="RigidBody2D" groups=["Ingredients"]]
 collision_layer = 2
 collision_mask = 15
 mass = 3.0

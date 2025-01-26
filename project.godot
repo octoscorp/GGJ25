@@ -19,6 +19,7 @@ config/icon="res://media/icon.svg"
 
 DumpEverything="*res://scenes/water/dump_everything.gd"
 INGREDIENTS="*res://scripts/global/ingredients.gd"
+Music="*res://scripts/global/music.gd"
 
 [display]
 

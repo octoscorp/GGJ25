@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqt5ffasarlxs"]
+
+[ext_resource type="Script" path="res://scripts/timer_display.gd" id="1_0xaeu"]
+
+[node name="TimerDisplay" type="Label"]
+text = "120 seconds"
+script = ExtResource("1_0xaeu")
+
+[node name="Timer" type="Timer" parent="."]
