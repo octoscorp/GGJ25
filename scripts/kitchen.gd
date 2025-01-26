@@ -2,7 +2,7 @@ extends Node2D
 # Manages level aspects etc
 @onready var ingr_spawn: Node2D = $IngredientSpawnLocation
 
-@export var level_duration_seconds: int = 60
+@export var level_duration_seconds: int = 30
 @export var recipe_ingredients: Array[INGREDIENTS.TYPE] = [
 	INGREDIENTS.TYPE.SHRIMP,
 	INGREDIENTS.TYPE.SHRIMP,
