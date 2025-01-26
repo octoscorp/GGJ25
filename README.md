@@ -22,6 +22,6 @@ Some things may need to be added to .gitignore as the project grows.
 ## Music
 Links to beepbox songs - basically to let me go back and edit if needed
 
-Be Happy - https://tinyurl.com/2a742gxl
-Don't Worry - https://tinyurl.com/2cu6t8mh
-Frantis Shrimp - https://tinyurl.com/2bznycyq
+Be Happy - https://tinyurl.com/22cfecen 
+Don't Worry - https://tinyurl.com/2b5okyr4
+Frantis Shrimp - https://tinyurl.com/23vl4lsg
