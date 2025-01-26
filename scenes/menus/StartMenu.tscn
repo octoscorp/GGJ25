@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://do70mnd7ja002"]
 
-[ext_resource type="PackedScene" path="res://scenes/LevelSelectionButton.tscn" id="1_qmmxe"]
+[ext_resource type="PackedScene" uid="uid://bdf4wv0no4u06" path="res://scenes/LevelSelectionButton.tscn" id="1_qmmxe"]
 [ext_resource type="Material" uid="uid://d8us87iwh6ih" path="res://scenes/fx/particle_burst.tres" id="2_2p2gf"]
 [ext_resource type="Material" uid="uid://df1486tvjysaw" path="res://scenes/fx/flame_burst.tres" id="3_a72lt"]
 [ext_resource type="Texture2D" uid="uid://lt0dwmsgi7jm" path="res://media/Untitled_Artwork.png" id="4_mxsm2"]
@@ -38,6 +38,7 @@ grow_vertical = 2
 texture = ExtResource("4_mxsm2")
 
 [node name="Button2" parent="." instance=ExtResource("1_qmmxe")]
+layout_mode = 0
 offset_left = 718.0
 offset_top = 516.0
 offset_right = 1148.0
@@ -48,6 +49,7 @@ text = "Tutorial"
 scene = "res://Tutorial.tscn"
 
 [node name="Button" parent="." instance=ExtResource("1_qmmxe")]
+layout_mode = 0
 offset_left = 611.0
 offset_top = 716.0
 offset_right = 1260.0
