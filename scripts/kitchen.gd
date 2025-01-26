@@ -2,6 +2,7 @@ extends Node2D
 # Manages level aspects etc
 @onready var ingr_spawn: Node2D = $IngredientSpawnLocation
 
+@export var level_music: Music.SONGS = Music.SONGS.BE_HAPPY
 @export var level_duration_seconds: int = 30
 @export var recipe_ingredients: Array[INGREDIENTS.TYPE] = [
 	INGREDIENTS.TYPE.SHRIMP,
@@ -38,6 +39,8 @@ func _ready() -> void:
 			offset.y += 60
 	# Start timer
 	$TimerDisplay.start(level_duration_seconds)
+	# Start music
+	Music.play_song(level_music)
 
 func level_end():
 	var score = $DropoffArea.score
