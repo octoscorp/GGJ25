@@ -2,7 +2,7 @@ extends RigidBody2D
 
 class_name Ingredient
 
-const COOK_RATE = 0.00005
+const COOK_RATE = 0.003
 const BURN_PERCENT = 1.60
 const MAXIMUM_COOK_DISTANCE = 300
 const MAX_TEMP = 140
@@ -39,7 +39,6 @@ const cooked_prefix = {
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var collision_polygon_2d: CollisionPolygon2D = $CollisionPolygon2D
-@onready var polygon_2d: Polygon2D = $Polygon2D
 @onready var progress_bar: TextureProgressBar = %ProgressBar
 @onready var cooked_fx: GPUParticles2D = $CookedFX
 @onready var burnt_fx: GPUParticles2D = $BurntFX
@@ -80,21 +79,22 @@ func get_score_value():
 			return int(-value / 2)
 
 func _set_sprite():
-	#temp logic before sprites
-	#var col : Color
-	#match state:
-		#COOK_STATES.RAW:
-			#col = Color(0.443, 0.446, 0.825)
-		#COOK_STATES.MEDIUM:
-			#col = Color(0.654, 0.71, 0.922)
-		#COOK_STATES.COOKED:
-			#col = Color(1, 0.639, 0.714)
-		#COOK_STATES.BURNT:
-			#col = Color(0.261, 0.182, 0.131)
-	#polygon_2d.modulate = col
-	
-	var file = load("res://media/" + cooked_prefix[state] + "_" + food_filename + ".png")
-	sprite_2d.texture = file
+	if food_filename == "":
+		#temp logic before sprites
+		var col : Color
+		match state:
+			COOK_STATES.RAW:
+				col = Color(0.443, 0.446, 0.825)
+			COOK_STATES.MEDIUM:
+				col = Color(0.654, 0.71, 0.922)
+			COOK_STATES.COOKED:
+				col = Color(1, 0.639, 0.714)
+			COOK_STATES.BURNT:
+				col = Color(0.261, 0.182, 0.131)
+		sprite_2d.modulate = col
+	else:
+		var file = load("res://media/" + cooked_prefix[state] + "_" + food_filename + ".png")
+		sprite_2d.texture = file
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -104,7 +104,7 @@ func _physics_process(delta: float) -> void:
 	if state == COOK_STATES.BURNT:
 		return
 	_calculate_temperature()
-	time_cooked += temperature * COOK_RATE
+	time_cooked += temperature * COOK_RATE * delta
 	if time_cooked < cook_time:
 		progress_bar.value = (time_cooked/cook_time)
 	else:

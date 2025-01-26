@@ -55,7 +55,6 @@ func _physics_process(delta: float) -> void:
 	bubble_life_span = randf_range(0.1, remap(dist, 32, 72, 0.5, 0.1))
 	
 	super._physics_process(delta)
-	var i = 0
 	for data in objects:
 		data[2] -= delta
 		if data[2] <= 0:

@@ -52,8 +52,7 @@ func create_object(pos: Vector2):
 
 	objects.append([object, img])
 
-func _physics_process(delta):
-	var index: int = 0
+func _physics_process(_delta):
 	for pair in objects:
 		var object: RID = pair[0]
 		var img: RID = pair[1]
@@ -64,7 +63,6 @@ func _physics_process(delta):
 		else:
 			RenderingServer.canvas_item_set_transform(img, trans)
 			PhysicsServer2D.body_apply_central_impulse(object, Vector2.RIGHT.rotated(randf()*TAU)*2)
-		index += 1
 
 
 
@@ -88,7 +86,7 @@ func delete_water(obj):
 	RenderingServer.free_rid(obj[1])
 	
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if OS.is_debug_build() and\
 	debug_spawn_action in InputMap.get_actions() and\
 	Input.is_action_pressed(debug_spawn_action):

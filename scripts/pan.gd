@@ -32,7 +32,7 @@ func _process(_delta: float) -> void:
 	pass
 
 # Called every physics frame (close to constant time). 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	
 	# Animated bodies only like one tform update per phys step so we'll defer
 	# the update to the end of the step

@@ -1,7 +1,5 @@
 extends CanvasItem
 
-signal text_finished()
-
 @export var target_label : Label
 @export var start_hidden = false
 

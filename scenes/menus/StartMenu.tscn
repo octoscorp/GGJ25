@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://do70mnd7ja002"]
 
-[ext_resource type="PackedScene" uid="uid://bdf4wv0no4u06" path="res://scenes/LevelSelectionButton.tscn" id="1_qmmxe"]
+[ext_resource type="PackedScene" path="res://scenes/LevelSelectionButton.tscn" id="1_qmmxe"]
 [ext_resource type="Material" uid="uid://d8us87iwh6ih" path="res://scenes/fx/particle_burst.tres" id="2_2p2gf"]
 [ext_resource type="Material" uid="uid://df1486tvjysaw" path="res://scenes/fx/flame_burst.tres" id="3_a72lt"]
 
