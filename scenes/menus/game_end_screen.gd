@@ -30,17 +30,18 @@ static func summon(score, max_score, min_score, next_scene = "res://scenes/Kitch
 
 func _ready() -> void:
 	var won = game_info.score > game_info.min_score
-	$FinalScore.text = "%dpts" % game_info.score
 	if won:
 		#next_button.self_modulate = Color.GREEN
 		$BackgroundBad.hide()
 		sting_sfx.stream = preload("res://media/sfx/sting_success.mp3")
 		sting_sfx.play()
+		$FinalScore.text = "%dpts" % game_info.score
 	else:
 		#next_button.self_modulate = Color.RED
 		$BackgroundGood.hide()
 		sting_sfx.stream = preload("res://media/sfx/sting_fail.mp3")
 		sting_sfx.play()
+		$FinalScore.text = "%d/%dpts" % [game_info.score, game_info.max_score]
 
 
 func _on_next_level_pressed() -> void:
