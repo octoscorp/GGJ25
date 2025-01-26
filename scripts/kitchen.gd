@@ -1,8 +1,8 @@
 extends Node2D
-
+# Manages level aspects etc
 @onready var ingr_spawn: Node2D = $IngredientSpawnLocation
 
-# Manages level aspects etc
+@export var level_duration_seconds: int = 60
 @export var recipe_ingredients: Array[INGREDIENTS.TYPE] = [
 	INGREDIENTS.TYPE.SHRIMP,
 	INGREDIENTS.TYPE.SHRIMP,
@@ -34,6 +34,8 @@ func _ready() -> void:
 		if offset.x > 300:
 			offset.x = 0
 			offset.y += 60
+	# Start timer
+	$TimerDisplay.start(level_duration_seconds)
 
 func level_end():
 	var score = $DropoffArea.score
@@ -41,4 +43,9 @@ func level_end():
 
 func _on_dropoff_area_no_ingredients_left() -> void:
 	# This tells us when all ingredients are gone (including by killzone)
+	$TimerDisplay.stop()
+	level_end()
+
+
+func _on_timer_display_time_completed() -> void:
 	level_end()

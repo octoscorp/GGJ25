@@ -22,7 +22,4 @@ func _delete_from_world(body):
 
 func _on_kill_zone_body_entered(body: Node2D) -> void:
 	if body.has_method("get_score_value"):
-		if body.is_burnt():
-			# Exploit protection
-			score += body.get_score_value()
 		_delete_from_world(body)

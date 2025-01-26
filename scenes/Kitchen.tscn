@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d37kie6jfac21"]
+[gd_scene load_steps=15 format=3 uid="uid://d37kie6jfac21"]
 
 [ext_resource type="Script" path="res://scripts/kitchen.gd" id="1_dsep4"]
 [ext_resource type="PackedScene" uid="uid://buow4sx2jp1cv" path="res://scenes/Pan.tscn" id="1_rqgy4"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dyyi3vgrslxoq" path="res://media/KitchenBackground.png" id="6_g4xgq"]
 [ext_resource type="PackedScene" uid="uid://ceewrp5oddd22" path="res://scenes/DropoffArea.tscn" id="7_c5gjm"]
 [ext_resource type="Script" path="res://scripts/temp_score_display.gd" id="8_cdoue"]
+[ext_resource type="PackedScene" uid="uid://cqt5ffasarlxs" path="res://scenes/timer_display.tscn" id="8_o08vk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q0ma4"]
 size = Vector2(2068, 348)
@@ -143,5 +144,12 @@ shape = SubResource("RectangleShape2D_flh87")
 [node name="IngredientSpawnLocation" type="Node2D" parent="."]
 position = Vector2(623, -2719)
 
+[node name="TimerDisplay" parent="." instance=ExtResource("8_o08vk")]
+offset_left = 1820.0
+offset_top = 1053.0
+offset_right = 1915.0
+offset_bottom = 1076.0
+
 [connection signal="no_ingredients_left" from="DropoffArea" to="." method="_on_dropoff_area_no_ingredients_left"]
 [connection signal="body_entered" from="KillZone" to="DropoffArea" method="_on_kill_zone_body_entered"]
+[connection signal="time_completed" from="TimerDisplay" to="." method="_on_timer_display_time_completed"]
