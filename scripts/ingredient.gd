@@ -40,9 +40,14 @@ const cooked_prefix = {
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var collision_polygon_2d: CollisionPolygon2D = $CollisionPolygon2D
 @onready var progress_bar: TextureProgressBar = %ProgressBar
+
 @onready var cooked_fx: GPUParticles2D = $CookedFX
+@onready var cooked_sfx: AudioStreamPlayer = $CookedSFX
+
 @onready var burnt_fx: GPUParticles2D = $BurntFX
+@onready var burnt_sfx: AudioStreamPlayer = $BurntSFX
 @onready var smoke_fx: GPUParticles2D = $SmokeFX
+
 
 var ingr_type
 #var cook_time: float
@@ -128,8 +133,10 @@ func _set_state(new_state = COOK_STATES.RAW):
 	print("State set to " + cooked_prefix[state])
 	if state == COOK_STATES.COOKED:
 		cooked_fx.emitting = true
+		cooked_sfx.play()
 	if state == COOK_STATES.BURNT:
 		smoke_fx.emitting = true
 		burnt_fx.emitting = true
+		burnt_sfx.play()
 		# TODO Play sound of burning
 		pass

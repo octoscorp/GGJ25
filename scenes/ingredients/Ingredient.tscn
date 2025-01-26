@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bj26u2kc06qb3"]
+[gd_scene load_steps=12 format=3 uid="uid://bj26u2kc06qb3"]
 
 [ext_resource type="Script" path="res://scripts/ingredient.gd" id="1_ofcp1"]
 [ext_resource type="Texture2D" uid="uid://bkmnukhl2lv4g" path="res://media/sparkle.png" id="3_gme53"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://8fo50lxt2x2y" path="res://media/flame_fx.png" id="4_8mjdb"]
 [ext_resource type="Material" uid="uid://df1486tvjysaw" path="res://scenes/fx/flame_burst.tres" id="5_jmqg5"]
 [ext_resource type="Texture2D" uid="uid://uvh8i6q0rjn6" path="res://media/smoke_fx.png" id="5_p1pnn"]
+[ext_resource type="AudioStream" uid="uid://gbcbsapgyc8a" path="res://media/sfx/cooked.mp3" id="7_7jcjg"]
+[ext_resource type="AudioStream" uid="uid://qs7n68s5ewdq" path="res://media/sfx/burnt_hiss.mp3" id="8_u0bbw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_quijn"]
 friction = 0.2
@@ -73,3 +75,10 @@ one_shot = true
 explosiveness = 0.9
 fixed_fps = 0
 interpolate = false
+
+[node name="CookedSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_7jcjg")
+
+[node name="BurntSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_u0bbw")
+pitch_scale = 3.0

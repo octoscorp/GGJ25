@@ -8,6 +8,8 @@ var bubble_life_span = 1.0
 @export var left_limit: Node2D
 @export var right_limit: Node2D
 
+@onready var sfx: AudioStreamPlayer = $AudioStreamPlayer
+
 func _on_timer_timeout() -> void:
 	if bubbling:
 		spawn_water()
@@ -53,6 +55,8 @@ func _physics_process(delta: float) -> void:
 	bubble_cooldown = max(0, remap(dist, 32, 72, 0, 0.2))
 	bubbling = dist < 72
 	bubble_life_span = randf_range(0.1, remap(dist, 32, 72, 0.5, 0.1))
+	
+	sfx.volume_db = linear_to_db(clampf(remap(dist, 0, 128, 1, 0), 0, 1))
 	
 	super._physics_process(delta)
 	for data in objects:
