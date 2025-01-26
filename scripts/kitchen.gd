@@ -18,6 +18,8 @@ extends Node2D
 	INGREDIENTS.TYPE.SHRIMP,
 ]
 
+@export_file("*.tscn") var next_level
+
 var scene = {
 	INGREDIENTS.TYPE.SHRIMP: preload("res://scenes/ingredients/shrimp.tscn"),
 }
@@ -37,7 +39,7 @@ func _ready() -> void:
 
 func level_end():
 	var score = $DropoffArea.score
-	# TODO: connect to win/loss screens
+	GameEndScreen.summon(score, 100, 1, next_level)
 
 func _on_dropoff_area_no_ingredients_left() -> void:
 	# This tells us when all ingredients are gone (including by killzone)

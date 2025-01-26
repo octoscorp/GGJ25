@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://2v06ypbkgmb0"]
+
+[ext_resource type="Texture2D" uid="uid://dr5k7pmgf04bq" path="res://media/game_win.png" id="1_0glm6"]
+[ext_resource type="Script" path="res://scenes/menus/game_end_screen.gd" id="1_isfs2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jkm11"]
+atlas = ExtResource("1_0glm6")
+region = Rect2(608.44, 852.87, 726, 110.11)
+
+[sub_resource type="GDScript" id="GDScript_h1jbs"]
+resource_name = "game_end_button"
+script/source = "extends TextureButton
+
+
+func _ready() -> void:
+	mouse_entered.connect(set_modulate.bind(Color(1.2,1.2,1.2)))
+	mouse_exited.connect(set_modulate.bind(Color(1,1,1)))
+	button_down.connect(set_modulate.bind(Color(0.8,.8,.8)))
+	button_up.connect(set_modulate.bind(Color(1,1,1)))
+"
+
+[node name="GameEndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_isfs2")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_0glm6")
+stretch_mode = 3
+
+[node name="NextButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 611.0
+offset_top = 851.0
+offset_right = 1337.0
+offset_bottom = 961.0
+texture_normal = SubResource("AtlasTexture_jkm11")
+script = SubResource("GDScript_h1jbs")
+
+[node name="StingSFX" type="AudioStreamPlayer" parent="."]
+
+[connection signal="pressed" from="NextButton" to="." method="_on_next_level_pressed"]
