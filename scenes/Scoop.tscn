@@ -1,10 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://bor51ut8l5qux"]
+[gd_scene load_steps=7 format=3 uid="uid://bor51ut8l5qux"]
 
 [ext_resource type="Script" path="res://scripts/pan.gd" id="1_n2ora"]
 [ext_resource type="Texture2D" uid="uid://cuxiwhgetit2v" path="res://media/Scoop.png" id="2_v8f3h"]
+[ext_resource type="AudioStream" uid="uid://dcmfmw7fcuxsh" path="res://media/sfx/pot_clang_1.mp3" id="3_s2sin"]
+[ext_resource type="AudioStream" uid="uid://bhu3wdlrp5kuu" path="res://media/sfx/pot_clang_2.mp3" id="4_msl8c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fhq7q"]
 size = Vector2(31.9868, 166.762)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_hcl81"]
+playback_mode = 1
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 2
+stream_0/stream = ExtResource("3_s2sin")
+stream_1/stream = ExtResource("4_msl8c")
 
 [node name="Scoop" type="Node2D"]
 script = ExtResource("1_n2ora")
@@ -19,6 +29,11 @@ position = Vector2(175.877, 672.686)
 rotation = 0.139626
 shape = SubResource("RectangleShape2D_fhq7q")
 
+[node name="StoveCast" type="RayCast2D" parent="Handle"]
+position = Vector2(135, 46)
+target_position = Vector2(0, 734)
+collision_mask = 32
+
 [node name="Body" type="AnimatableBody2D" parent="."]
 position = Vector2(510, -252)
 
@@ -30,6 +45,9 @@ texture = ExtResource("2_v8f3h")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Body"]
 polygon = PackedVector2Array(269, 989, 315, 1045, 415, 1045, 455, 984, 450, 1013, 438, 1037, 420, 1050, 396, 1059, 369, 1064, 341, 1059, 314, 1050, 290, 1033, 277, 1016)
+
+[node name="ClangSFX" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_hcl81")
 
 [connection signal="mouse_entered" from="Handle" to="." method="_on_handle_mouse_entered"]
 [connection signal="mouse_exited" from="Handle" to="." method="_on_handle_mouse_exited"]

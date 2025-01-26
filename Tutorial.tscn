@@ -1,0 +1,222 @@
+[gd_scene load_steps=23 format=3 uid="uid://c5ki84yjm8ejt"]
+
+[ext_resource type="Script" path="res://scenes/menus/tutorial_sequencer.gd" id="1_eyctt"]
+[ext_resource type="Texture2D" uid="uid://dyyi3vgrslxoq" path="res://media/KitchenBackground.png" id="2_7kyyh"]
+[ext_resource type="PackedScene" uid="uid://bor51ut8l5qux" path="res://scenes/Scoop.tscn" id="3_v7ks2"]
+[ext_resource type="Script" path="res://scenes/water/water_generator.gd" id="4_c5xxt"]
+[ext_resource type="PackedScene" uid="uid://buow4sx2jp1cv" path="res://scenes/Pan.tscn" id="4_yavh8"]
+[ext_resource type="PackedScene" uid="uid://bobgfyj5x0c7k" path="res://scenes/water/flame.tscn" id="5_48ucg"]
+[ext_resource type="PackedScene" uid="uid://ceewrp5oddd22" path="res://scenes/DropoffArea.tscn" id="5_y1bfv"]
+[ext_resource type="Script" path="res://scripts/temp_score_display.gd" id="6_g3onh"]
+[ext_resource type="Script" path="res://scenes/menus/animation_helper.gd" id="8_u5kh8"]
+[ext_resource type="Texture2D" uid="uid://bsp0yv0mny5lx" path="res://media/shrimp_game_button.png" id="9_4yj2e"]
+[ext_resource type="FontFile" uid="uid://dum8djm4c46f1" path="res://media/Child Hood.otf" id="10_r0q7m"]
+[ext_resource type="AudioStream" uid="uid://bojfsrnd5mhpv" path="res://media/sfx/gibberish_female.mp3" id="12_yo1yo"]
+[ext_resource type="PackedScene" uid="uid://d0klm3tj51n70" path="res://scenes/ingredients/shrimp.tscn" id="13_imas1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eh3q0"]
+size = Vector2(2415, 233)
+
+[sub_resource type="Shader" id="Shader_8fqvx"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+uniform float alpha_threshold : hint_range(0.0, 1.0);
+
+void fragment() {
+	vec4 c = textureLod(screen_texture, SCREEN_UV, 0.0);
+	if (c.a > 0.0001) {
+		c.rgb /= c.a;
+	}
+	COLOR *= c;
+
+	//COLOR.a = step(alpha_threshold, COLOR.a);
+
+	//COLOR.r = 1.0;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wxeni"]
+shader = SubResource("Shader_8fqvx")
+shader_parameter/alpha_threshold = 0.5
+
+[sub_resource type="Gradient" id="Gradient_bx06h"]
+offsets = PackedFloat32Array(0.678322, 1)
+colors = PackedColorArray(0.2025, 0.698625, 0.81, 1, 0.2025, 0.698625, 0.81, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rnrgh"]
+gradient = SubResource("Gradient_bx06h")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_2ol27"]
+font = ExtResource("10_r0q7m")
+font_size = 96
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_bhoo5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GF:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2284, 692)]
+}
+
+[sub_resource type="Animation" id="Animation_qqlfq"]
+resource_name = "intro"
+length = 0.9
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GF:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(2284, 692), Vector2(1581, 681)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextBox")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.775),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"appear"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1i6tk"]
+_data = {
+"RESET": SubResource("Animation_bhoo5"),
+"intro": SubResource("Animation_qqlfq")
+}
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_eyctt")
+
+[node name="KitchenBackground" type="Sprite2D" parent="."]
+position = Vector2(962, 541)
+scale = Vector2(-1, 1)
+texture = ExtResource("2_7kyyh")
+
+[node name="Area2D" type="StaticBody2D" parent="KitchenBackground"]
+collision_layer = 32
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KitchenBackground/Area2D"]
+position = Vector2(102, 437)
+shape = SubResource("RectangleShape2D_eh3q0")
+
+[node name="Scoop" parent="." instance=ExtResource("3_v7ks2")]
+top_level = true
+position = Vector2(793, 93)
+
+[node name="Pan" parent="." instance=ExtResource("4_yavh8")]
+position = Vector2(548, 701)
+
+[node name="WaterGenerator" type="CanvasGroup" parent="Pan" node_paths=PackedStringArray("spawn_zone")]
+self_modulate = Color(1, 1, 1, 0.537255)
+material = SubResource("ShaderMaterial_wxeni")
+position = Vector2(-62, -779)
+script = ExtResource("4_c5xxt")
+starting_water = 300
+water_texture = SubResource("GradientTexture2D_rnrgh")
+spawnRad = 10.0
+debug_spawn_action = "debug_spawn_water"
+particle_size = 24.0
+texture_size = 48.0
+spawn_zone = NodePath("ReferenceRect")
+water_layer = 4
+water_mask = 15
+
+[node name="ReferenceRect" type="ReferenceRect" parent="Pan/WaterGenerator"]
+offset_left = -91.0
+offset_top = 498.0
+offset_right = 349.0
+offset_bottom = 786.0
+border_color = Color(1, 0.174173, 0.127215, 1)
+border_width = 10.0
+
+[node name="Flame" parent="." instance=ExtResource("5_48ucg")]
+position = Vector2(1112, 808)
+
+[node name="DropoffArea" parent="." instance=ExtResource("5_y1bfv")]
+position = Vector2(241, 809)
+
+[node name="TEMP_ScoreDisplay" type="Label" parent="."]
+custom_minimum_size = Vector2(200, 0)
+offset_left = 1518.0
+offset_top = 7.0
+offset_right = 1899.0
+offset_bottom = 95.0
+theme_override_font_sizes/font_size = 64
+text = "REPLACE ME"
+script = ExtResource("6_g3onh")
+
+[node name="TextBox" type="Node2D" parent="." node_paths=PackedStringArray("target_label")]
+position = Vector2(743, 498)
+script = ExtResource("8_u5kh8")
+target_label = NodePath("NinePatchRect/SpeechLabel")
+start_hidden = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TextBox"]
+offset_left = -696.0
+offset_top = -470.0
+offset_right = 694.0
+offset_bottom = -129.0
+texture = ExtResource("9_4yj2e")
+region_rect = Rect2(11, 6, 338, 181)
+patch_margin_left = 87
+patch_margin_top = 86
+patch_margin_right = 94
+patch_margin_bottom = 70
+
+[node name="SpeechLabel" type="Label" parent="TextBox/NinePatchRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.056
+anchor_top = 0.091
+anchor_right = 0.929
+anchor_bottom = 0.883
+offset_left = -0.496002
+offset_top = 0.405998
+offset_right = 0.485962
+offset_bottom = 0.477997
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_2ol27")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1i6tk")
+}
+autoplay = "intro"
+
+[node name="ChatterSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_yo1yo")
+
+[node name="Shrimp" parent="." instance=ExtResource("13_imas1")]
+position = Vector2(625, 487)
+
+[connection signal="cookProgress" from="Shrimp" to="." method="_on_shrimp_cook_progress"]
