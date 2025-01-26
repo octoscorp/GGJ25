@@ -172,6 +172,7 @@ texture_pressed = ExtResource("14_3does")
 
 [node name="RestartButton" type="Label" parent="TextureButton"]
 custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
 offset_left = -12.0
 offset_top = 50.0
 offset_right = 369.0
