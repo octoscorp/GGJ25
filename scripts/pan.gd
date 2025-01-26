@@ -10,6 +10,7 @@ const ROTATION_LIMIT = 30
 @onready var handle: StaticBody2D = $Handle
 @onready var body: StaticBody2D = $Body
 @onready var stove_cast: RayCast2D = $Handle/StoveCast
+@onready var clang_sfx: AudioStreamPlayer = $ClangSFX
 
 # Bool representing when the mouse is over the handle
 var hovered = false
@@ -22,6 +23,9 @@ var mouse_offset = Vector2(0,0)
 var body_handle_offset: Vector2
 var spr_x_change = 0
 var spr_y_change = 0
+
+# stores StoveCasts's collision state from last physic step 
+var was_colliding = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -67,8 +71,12 @@ func _physics_process(_delta: float) -> void:
 		handle.position = get_viewport().get_mouse_position() + mouse_offset
 	# Prevent pan from going through the stove
 		stove_cast.force_raycast_update()
-		if stove_cast.is_colliding():
+		var is_colliding = stove_cast.is_colliding()
+		if is_colliding:
 			handle.position += stove_cast.get_collision_point() - stove_cast.to_global(stove_cast.target_position)
+		if is_colliding > was_colliding:
+			clang_sfx.play()
+		was_colliding = is_colliding
 
 # Called every time the game receives input
 func _input(event: InputEvent) -> void:

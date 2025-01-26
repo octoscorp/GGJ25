@@ -57,7 +57,7 @@ position = Vector2(-151, 130)
 shape = SubResource("RectangleShape2D_q0ma4")
 
 [node name="Pan" parent="." instance=ExtResource("1_rqgy4")]
-position = Vector2(751, 787)
+position = Vector2(763, 700)
 
 [node name="Flame" parent="." instance=ExtResource("2_1cn4q")]
 position = Vector2(826, 822)

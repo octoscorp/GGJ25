@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://buow4sx2jp1cv"]
+[gd_scene load_steps=11 format=3 uid="uid://buow4sx2jp1cv"]
 
 [ext_resource type="Script" path="res://scripts/pan.gd" id="1_i5q1y"]
 [ext_resource type="PackedScene" uid="uid://d31n3c4fk812t" path="res://scenes/water/bubble_source.tscn" id="3_8w0h2"]
+[ext_resource type="AudioStream" uid="uid://dcmfmw7fcuxsh" path="res://media/sfx/pot_clang_1.mp3" id="4_a37qu"]
 [ext_resource type="Texture2D" uid="uid://8fig5we6cwiy" path="res://media/pot.png" id="4_h4ms3"]
+[ext_resource type="AudioStream" uid="uid://bhu3wdlrp5kuu" path="res://media/sfx/pot_clang_2.mp3" id="5_5txu5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vfp4r"]
 atlas = ExtResource("4_h4ms3")
@@ -17,6 +19,14 @@ size = Vector2(69, 525)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7k7v4"]
 size = Vector2(93, 576)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_thann"]
+playback_mode = 1
+random_pitch = 1.1
+random_volume_offset_db = 1.0
+streams_count = 2
+stream_0/stream = ExtResource("4_a37qu")
+stream_1/stream = ExtResource("5_5txu5")
 
 [node name="Pan" type="Node2D"]
 script = ExtResource("1_i5q1y")
@@ -77,6 +87,9 @@ position = Vector2(-699, 301)
 
 [node name="RightBubbleLimit" type="Marker2D" parent="Body"]
 position = Vector2(-168, 300)
+
+[node name="ClangSFX" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_thann")
 
 [connection signal="mouse_entered" from="Handle" to="." method="_on_handle_mouse_entered"]
 [connection signal="mouse_exited" from="Handle" to="." method="_on_handle_mouse_exited"]

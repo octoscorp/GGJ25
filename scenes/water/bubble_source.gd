@@ -3,6 +3,7 @@ class_name BubbleSource extends WaterSource
 var bubble_cooldown = 0.2
 var bubbling = false
 var bubble_life_span = 1.0
+var target_bubble_volume
 
 @onready var start_y = position.y
 @export var left_limit: Node2D
@@ -56,7 +57,10 @@ func _physics_process(delta: float) -> void:
 	bubbling = dist < 72
 	bubble_life_span = randf_range(0.1, remap(dist, 32, 72, 0.5, 0.1))
 	
-	sfx.volume_db = linear_to_db(clampf(remap(dist, 0, 128, 1, 0), 0, 1))
+	var vol = db_to_linear(sfx.volume_db)
+	target_bubble_volume = clampf(remap(dist, 0, 128, 1, 0), 0, 1)
+	vol = move_toward(vol, target_bubble_volume, delta*0.5)
+	sfx.volume_db = linear_to_db(vol)
 	
 	super._physics_process(delta)
 	for data in objects:
