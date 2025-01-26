@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dgtexfedw1eea"]
+[gd_scene load_steps=13 format=3 uid="uid://dgtexfedw1eea"]
 
 [ext_resource type="Script" path="res://scenes/menus/event_sequencer.gd" id="1_3djw8"]
 [ext_resource type="Texture2D" uid="uid://dnc6r7tu5fo1d" path="res://media/icon.svg" id="1_eb86j"]
 [ext_resource type="Script" path="res://scenes/menus/animation_helper.gd" id="2_13h60"]
 [ext_resource type="Texture2D" uid="uid://bsp0yv0mny5lx" path="res://media/shrimp_game_button.png" id="2_orsya"]
 [ext_resource type="FontFile" uid="uid://dum8djm4c46f1" path="res://media/Child Hood.otf" id="4_xdoym"]
+[ext_resource type="AudioStream" uid="uid://bb10ui0p4h37w" path="res://media/sfx/gibberish_male.mp3" id="6_f5flr"]
 
 [sub_resource type="Animation" id="Animation_bhoo5"]
 length = 0.001
@@ -147,3 +148,6 @@ grow_vertical = 2
 label_settings = SubResource("LabelSettings_x3vhm")
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[node name="ChatterSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_f5flr")

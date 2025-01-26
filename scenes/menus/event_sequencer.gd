@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var chatter_sfx: AudioStreamPlayer = $ChatterSFX
 
 @onready var events = [
 	auto_next_event.bind(
@@ -40,14 +41,16 @@ func play_anim(animation : String):
 
 func _process(delta: float) -> void:
 	if text_label != null:
-		text_index += delta*50
+		text_index += delta*30
 		text_label.text = text_to_print.substr(0, int(text_index))
+		chatter_sfx.stream_paused = int(text_index) > text_to_print.length()
 
 func animate_text(label : Label, text : String):
 	# finish off old text if it's on a different label first
 	if text_label!=null:
 		text_label.text = text_to_print
 	
+	chatter_sfx.play(chatter_sfx.stream.get_length() * randf())
 	text_to_print = text
 	text_index = 0
 	text_label = label
