@@ -1,4 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://bobgfyj5x0c7k"]
+[gd_scene load_steps=9 format=3 uid="uid://bobgfyj5x0c7k"]
+
+[ext_resource type="Texture2D" uid="uid://daofxbvbw5wfn" path="res://media/Flame1.png" id="1_2w31l"]
+[ext_resource type="Texture2D" uid="uid://ox7nlc82wc2k" path="res://media/Flame2.png" id="2_gp2bf"]
+[ext_resource type="Texture2D" uid="uid://co65ccbta4qg2" path="res://media/Flame3.png" id="3_4rpq7"]
+[ext_resource type="Texture2D" uid="uid://ccpwf5w8qatpo" path="res://media/Flame4.png" id="4_3d4pl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2tsrb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_2w31l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gp2bf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4rpq7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3d4pl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
 
 [sub_resource type="Gradient" id="Gradient_invbv"]
 offsets = PackedFloat32Array(0, 0.549161, 1)
@@ -23,11 +48,19 @@ gravity_point_center = Vector2(0, -1)
 gravity_direction = Vector2(0, -1)
 gravity = 2000.0
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-8, 112)
+scale = Vector2(0.466667, 0.466667)
+sprite_frames = SubResource("SpriteFrames_2tsrb")
+autoplay = "default"
+frame_progress = 0.439135
+
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(-8, -60)
 polygon = PackedVector2Array(-80, 72, -47, 189, 32, 191, 80, 72, 0, -128)
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(-15, 21)
 texture = SubResource("GradientTexture2D_5uyxs")
 polygon = PackedVector2Array(0, 160, -24, 152, -40, 136, -40, 120, -24, 96, 0, 80, 16, 56, 16, 32, 32, 56, 40, 64, 48, 88, 40, 120, 16, 160)

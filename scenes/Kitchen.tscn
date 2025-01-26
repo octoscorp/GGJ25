@@ -122,3 +122,30 @@ position = Vector2(855, -1814)
 
 [node name="Shrimp3" parent="." instance=ExtResource("7_px0ua")]
 position = Vector2(970, -1690)
+
+[node name="Shrimp4" parent="." instance=ExtResource("7_px0ua")]
+position = Vector2(695, -1930)
+
+[node name="Shrimp5" parent="." instance=ExtResource("7_px0ua")]
+position = Vector2(864, -2003)
+
+[node name="Shrimp6" parent="." instance=ExtResource("7_px0ua")]
+position = Vector2(979, -1879)
+
+[node name="Shrimp7" parent="." instance=ExtResource("7_px0ua")]
+position = Vector2(686, -1741)
+
+[node name="Shrimp8" parent="." instance=ExtResource("7_px0ua")]
+position = Vector2(855, -1814)
+
+[node name="Shrimp9" parent="." instance=ExtResource("7_px0ua")]
+position = Vector2(970, -1690)
+
+[node name="Shrimp10" parent="." instance=ExtResource("7_px0ua")]
+position = Vector2(695, -1930)
+
+[node name="Shrimp11" parent="." instance=ExtResource("7_px0ua")]
+position = Vector2(864, -2003)
+
+[node name="Shrimp12" parent="." instance=ExtResource("7_px0ua")]
+position = Vector2(979, -1879)
