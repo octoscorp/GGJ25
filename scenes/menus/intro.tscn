@@ -1,11 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://dgtexfedw1eea"]
+[gd_scene load_steps=15 format=3 uid="uid://dgtexfedw1eea"]
 
 [ext_resource type="Script" path="res://scenes/menus/event_sequencer.gd" id="1_3djw8"]
 [ext_resource type="Texture2D" uid="uid://dnc6r7tu5fo1d" path="res://media/icon.svg" id="1_eb86j"]
 [ext_resource type="Script" path="res://scenes/menus/animation_helper.gd" id="2_13h60"]
 [ext_resource type="Texture2D" uid="uid://bsp0yv0mny5lx" path="res://media/shrimp_game_button.png" id="2_orsya"]
+[ext_resource type="Texture2D" uid="uid://df27wqk2k7fj7" path="res://media/gf.png" id="4_6xp6i"]
 [ext_resource type="FontFile" uid="uid://dum8djm4c46f1" path="res://media/Child Hood.otf" id="4_xdoym"]
 [ext_resource type="AudioStream" uid="uid://bojfsrnd5mhpv" path="res://media/sfx/gibberish_female.mp3" id="6_hw6s7"]
+[ext_resource type="Texture2D" uid="uid://2w2nd4m4eujx" path="res://media/Good_bg.png" id="7_yrii3"]
 
 [sub_resource type="Animation" id="Animation_bhoo5"]
 length = 0.001
@@ -79,6 +81,11 @@ outline_color = Color(0, 0, 0, 1)
 [node name="Intro" type="Node2D"]
 script = ExtResource("1_3djw8")
 
+[node name="GoodBg" type="Sprite2D" parent="."]
+position = Vector2(963, 540.5)
+scale = Vector2(1.025, 1.03241)
+texture = ExtResource("7_yrii3")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_1i6tk")
@@ -89,14 +96,17 @@ autoplay = "intro"
 position = Vector2(2284, 692)
 
 [node name="Polygon2D2" type="Polygon2D" parent="GF"]
+visible = false
 color = Color(0, 0.453363, 0.510581, 1)
 polygon = PackedVector2Array(-173, -186, 324, -169, 378, -317, 350, -439, 225, -521, 40, -555, -93, -529, -168, -388, -179, -274)
 
 [node name="Polygon2D" type="Polygon2D" parent="GF"]
+visible = false
 position = Vector2(50, 193)
 polygon = PackedVector2Array(-190, 76, 228, 90, 209, -69, 186, -158, 155, -248, 338, -378, 121, -335, 104, -401, 149, -445, 182, -494, 189, -569, 162, -623, 80, -651, -19, -657, -79, -634, -128, -586, -141, -524, -125, -459, -96, -419, -120, -366, -145, -329, -387, -401, -175, -253, -200, -162, -220, -29, -221, 35, -223, 76)
 
 [node name="Icon" type="Sprite2D" parent="GF"]
+visible = false
 position = Vector2(52.0001, -333)
 scale = Vector2(1.64063, 1.67188)
 texture = ExtResource("1_eb86j")
@@ -112,6 +122,11 @@ position = Vector2(29.8666, 12.5608)
 rotation = -0.261799
 scale = Vector2(0.433815, 0.253059)
 texture = SubResource("GradientTexture2D_87ikn")
+
+[node name="Gf" type="Sprite2D" parent="GF"]
+position = Vector2(43, -169)
+scale = Vector2(0.617188, 0.617188)
+texture = ExtResource("4_6xp6i")
 
 [node name="TextBox" type="Node2D" parent="." node_paths=PackedStringArray("target_label")]
 position = Vector2(743, 498)
