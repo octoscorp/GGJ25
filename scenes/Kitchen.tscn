@@ -51,6 +51,9 @@ size = Vector2(120, 4643)
 
 [node name="Kitchen" type="Node2D"]
 script = ExtResource("1_dsep4")
+level_music = null
+level_duration_seconds = null
+recipe_ingredients = null
 next_level = "res://scenes/menus/StartMenu.tscn"
 
 [node name="OvenTop" type="StaticBody2D" parent="."]
@@ -96,11 +99,11 @@ border_width = 10.0
 collision_mask = 3
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-position = Vector2(33, -452)
+position = Vector2(-46, -452)
 polygon = PackedVector2Array(732, -187, 189, -923, 133, -96, 742, 35)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D"]
-position = Vector2(68, -456)
+position = Vector2(83, -456)
 polygon = PackedVector2Array(905, -183, 1396, -1020, 1465, -48, 892, 49)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
