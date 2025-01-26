@@ -83,6 +83,9 @@ func get_score_value():
 		COOK_STATES.BURNT:
 			return int(-value / 2)
 
+func is_burnt():
+	return state == COOK_STATES.BURNT
+
 func _set_sprite():
 	if food_filename == "":
 		#temp logic before sprites
