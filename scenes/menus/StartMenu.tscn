@@ -15,11 +15,20 @@ func _ready() -> void:
 [node name="Node2D" type="Node2D"]
 script = SubResource("GDScript_u6qmh")
 
+[node name="Button2" parent="." instance=ExtResource("1_qmmxe")]
+offset_left = 696.0
+offset_top = 296.0
+offset_right = 1126.0
+offset_bottom = 404.0
+text = "Tutorial"
+scene = "res://Tutorial.tscn"
+
 [node name="Button" parent="." instance=ExtResource("1_qmmxe")]
-offset_left = 532.0
-offset_top = 246.0
-offset_right = 718.0
-offset_bottom = 315.0
+offset_left = 583.0
+offset_top = 468.0
+offset_right = 1232.0
+offset_bottom = 576.0
+text = "Play Game"
 scene = "res://scenes/menus/intro.tscn"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
