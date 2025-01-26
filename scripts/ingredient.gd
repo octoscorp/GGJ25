@@ -7,6 +7,8 @@ const BURN_PERCENT = 1.60
 const MAXIMUM_COOK_DISTANCE = 300
 const MAX_TEMP = 140
 
+signal cookProgress
+
 #const COOK_TIMES = {
 	#INGREDIENTS.SHRIMP: 3.0,
 #}
@@ -118,8 +120,10 @@ func _physics_process(delta: float) -> void:
 		_set_state(COOK_STATES.BURNT)
 	elif time_cooked >= cook_time and state <= COOK_STATES.MEDIUM:
 		_set_state(COOK_STATES.COOKED)
+		cookProgress.emit()
 	elif time_cooked >= cook_time / 2  and state == COOK_STATES.RAW:
 		_set_state(COOK_STATES.MEDIUM)
+		cookProgress.emit()
 
 func _calculate_temperature():
 	var flame = get_tree().get_nodes_in_group("Flame")[0] as Node2D
