@@ -1,13 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://d37kie6jfac21"]
+[gd_scene load_steps=19 format=3 uid="uid://d37kie6jfac21"]
 
 [ext_resource type="Script" path="res://scripts/kitchen.gd" id="1_dsep4"]
 [ext_resource type="PackedScene" uid="uid://buow4sx2jp1cv" path="res://scenes/Pan.tscn" id="1_rqgy4"]
 [ext_resource type="PackedScene" uid="uid://bobgfyj5x0c7k" path="res://scenes/water/flame.tscn" id="2_1cn4q"]
+[ext_resource type="Texture2D" uid="uid://twxy5iok7cn2" path="res://media/Stove.png" id="2_2v8a7"]
 [ext_resource type="Script" path="res://scenes/water/water_generator.gd" id="3_3bymv"]
 [ext_resource type="Texture2D" uid="uid://dyyi3vgrslxoq" path="res://media/KitchenBackground.png" id="6_g4xgq"]
+[ext_resource type="FontFile" uid="uid://dum8djm4c46f1" path="res://media/Child Hood.otf" id="7_2pvp3"]
 [ext_resource type="PackedScene" uid="uid://ceewrp5oddd22" path="res://scenes/DropoffArea.tscn" id="7_c5gjm"]
 [ext_resource type="Script" path="res://scripts/temp_score_display.gd" id="8_cdoue"]
 [ext_resource type="Texture2D" uid="uid://m1ka2njk3y6q" path="res://media/Plate.png" id="8_hi2t4"]
+[ext_resource type="PackedScene" uid="uid://bor51ut8l5qux" path="res://scenes/Scoop.tscn" id="11_ry8mo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q0ma4"]
 size = Vector2(2068, 348)
@@ -46,12 +49,21 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.5, 0)
 metadata/_snap_enabled = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_flh87"]
-size = Vector2(120, 4643)
+[sub_resource type="LabelSettings" id="LabelSettings_h2tqe"]
+font = ExtResource("7_2pvp3")
+font_size = 72
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kqean"]
+normal = Vector2(0.99935, -0.036059)
 
 [node name="Kitchen" type="Node2D"]
 script = ExtResource("1_dsep4")
 next_level = "res://scenes/menus/StartMenu.tscn"
+
+[node name="Stove" type="Sprite2D" parent="."]
+position = Vector2(837.913, 1003)
+scale = Vector2(0.565218, 0.565218)
+texture = ExtResource("2_2v8a7")
 
 [node name="OvenTop" type="StaticBody2D" parent="."]
 position = Vector2(1151, 914)
@@ -63,10 +75,7 @@ position = Vector2(-151, 130)
 shape = SubResource("RectangleShape2D_q0ma4")
 
 [node name="Pan" parent="." instance=ExtResource("1_rqgy4")]
-position = Vector2(763, 700)
-
-[node name="Flame" parent="." instance=ExtResource("2_1cn4q")]
-position = Vector2(826, 822)
+position = Vector2(763, 780)
 
 [node name="WaterGenerator" type="CanvasGroup" parent="." node_paths=PackedStringArray("spawn_zone")]
 self_modulate = Color(1, 1, 1, 0.537255)
@@ -103,19 +112,6 @@ polygon = PackedVector2Array(732, -187, 189, -923, 133, -96, 742, 35)
 position = Vector2(83, -456)
 polygon = PackedVector2Array(905, -183, 1396, -1020, 1465, -48, 892, 49)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-272, -1109)
-shape = SubResource("RectangleShape2D_flh87")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(2701, -1089)
-shape = SubResource("RectangleShape2D_flh87")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(1093, -3397)
-rotation = -1.57129
-shape = SubResource("RectangleShape2D_flh87")
-
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -5
 texture = ExtResource("6_g4xgq")
@@ -132,22 +128,43 @@ offset_right = 1899.0
 offset_bottom = 95.0
 theme_override_font_sizes/font_size = 64
 text = "REPLACE ME"
+label_settings = SubResource("LabelSettings_h2tqe")
 script = ExtResource("8_cdoue")
 
 [node name="KillZone" type="Area2D" parent="."]
 collision_mask = 2
 
-[node name="FloorBox" type="CollisionShape2D" parent="KillZone"]
-position = Vector2(1086, 1285)
-rotation = -1.57129
-shape = SubResource("RectangleShape2D_flh87")
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="KillZone"]
+position = Vector2(739, -4083)
+rotation = 1.61843
+shape = SubResource("WorldBoundaryShape2D_kqean")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="KillZone"]
+position = Vector2(-630, 562)
+shape = SubResource("WorldBoundaryShape2D_kqean")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="KillZone"]
+position = Vector2(2411, 565)
+rotation = -3.09515
+shape = SubResource("WorldBoundaryShape2D_kqean")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="KillZone"]
+position = Vector2(1093, 1628)
+rotation = -1.53295
+shape = SubResource("WorldBoundaryShape2D_kqean")
 
 [node name="IngredientSpawnLocation" type="Node2D" parent="."]
 position = Vector2(623, -2719)
 
+[node name="Flame" parent="." instance=ExtResource("2_1cn4q")]
+position = Vector2(835.913, 810)
+
 [node name="Plate" type="Sprite2D" parent="."]
 position = Vector2(230, 953)
 texture = ExtResource("8_hi2t4")
+
+[node name="Scoop" parent="." instance=ExtResource("11_ry8mo")]
+position = Vector2(739, -6)
 
 [connection signal="no_ingredients_left" from="DropoffArea" to="." method="_on_dropoff_area_no_ingredients_left"]
 [connection signal="body_entered" from="KillZone" to="DropoffArea" method="_on_kill_zone_body_entered"]

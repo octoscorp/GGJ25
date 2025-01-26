@@ -41,7 +41,7 @@ func _ready() -> void:
 		$BackgroundGood.hide()
 		sting_sfx.stream = preload("res://media/sfx/sting_fail.mp3")
 		sting_sfx.play()
-		$FinalScore.text = "%d/%dpts" % [game_info.score, game_info.max_score]
+		$FinalScore.text = "%d/%dpts" % [game_info.score, game_info.min_score]
 
 
 func _on_next_level_pressed() -> void:

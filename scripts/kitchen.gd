@@ -43,7 +43,7 @@ func _ready() -> void:
 
 func level_end():
 	var score = $DropoffArea.score
-	GameEndScreen.summon(score, 1000, 45, next_level)
+	GameEndScreen.summon(score, 1000, 50, next_level)
 
 func _on_dropoff_area_no_ingredients_left() -> void:
 	# This tells us when all ingredients are gone (including by killzone)
