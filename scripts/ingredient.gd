@@ -108,7 +108,8 @@ func _set_sprite():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	# Movement (if necessary)
+	if freeze:
+		return
 
 	# Cook the ingredient
 	if state == COOK_STATES.BURNT:

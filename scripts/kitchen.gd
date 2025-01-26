@@ -38,17 +38,15 @@ func _ready() -> void:
 			offset.x = 0
 			offset.y += 60
 	# Start timer
-	$TimerDisplay.start(level_duration_seconds)
 	# Start music
 	Music.play_song(level_music)
 
 func level_end():
 	var score = $DropoffArea.score
-	GameEndScreen.summon(score, 100, 1, next_level)
+	GameEndScreen.summon(score, 1000, 45, next_level)
 
 func _on_dropoff_area_no_ingredients_left() -> void:
 	# This tells us when all ingredients are gone (including by killzone)
-	$TimerDisplay.stop()
 	level_end()
 
 
