@@ -1,10 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://do70mnd7ja002"]
+[gd_scene load_steps=5 format=3 uid="uid://do70mnd7ja002"]
 
-[ext_resource type="PackedScene" uid="uid://bdf4wv0no4u06" path="res://scenes/LevelSelectionButton.tscn" id="1_qmmxe"]
+[ext_resource type="PackedScene" path="res://scenes/LevelSelectionButton.tscn" id="1_qmmxe"]
 [ext_resource type="Material" uid="uid://d8us87iwh6ih" path="res://scenes/fx/particle_burst.tres" id="2_2p2gf"]
 [ext_resource type="Material" uid="uid://df1486tvjysaw" path="res://scenes/fx/flame_burst.tres" id="3_a72lt"]
 
+[sub_resource type="GDScript" id="GDScript_u6qmh"]
+script/source = "extends Node2D
+
+
+func _ready() -> void:
+	Music.play_song(Music.BE_HAPPY)
+"
+
 [node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_u6qmh")
 
 [node name="Button" parent="." instance=ExtResource("1_qmmxe")]
 offset_left = 532.0

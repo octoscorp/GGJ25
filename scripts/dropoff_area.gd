@@ -7,7 +7,7 @@ var score = 0
 var completed = 0
 
 func _ready() -> void:
-	total_ingredients = get_tree().get_nodes_in_group("Ingredients").size()
+	(func():total_ingredients = get_tree().get_nodes_in_group("Ingredients").size()).call_deferred()
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.has_method("get_score_value"):
